@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-//import audioFile from './audio/аудио1.mp3';
 
 class BubbleSpeechFrame extends Component {
   constructor(props) {
     super(props);
     this.showText = this.showText.bind(this);
     this.state = {
-      show: true
+      show: false
     };
   }
 
-  showText() {
+  showText(e) {
+    e.target.parentNode.parentNode.children[1].childNodes[0].classList.toggle(
+      'show'
+    );
+    /* 
     const currentState = this.state.show;
-    this.setState({ show: !currentState });
-    console.log('clicked');
+    this.setState({ show: !currentState }); */
   }
   render() {
     const { lines } = this.props;
@@ -22,14 +24,12 @@ class BubbleSpeechFrame extends Component {
       return (
         <React.Fragment>
           {line.speaker === 1 ? (
-            <div className="speaker-1">
+            <div className="speaker-1" key={line.id}>
               <div className="sound-cont">
                 <ReactAudioPlayer src={line.audio} autoPlay controls />
               </div>
               <div className="text-cont">
-                <p className={`text ${this.state.show ? '' : 'show'}`}>
-                  {line.text}
-                </p>
+                {<p className="text">{line.text}</p>}
               </div>
               {line.prompt && (
                 <div className="prompt-cont">
@@ -37,20 +37,18 @@ class BubbleSpeechFrame extends Component {
                 </div>
               )}
               <div className="toggle-text">
-                <button className="grow_box" onClick={this.showText}>
+                <button className="grow_box" onClick={e => this.showText(e)}>
                   show text
                 </button>
               </div>
             </div>
           ) : (
-            <div className="speaker-2">
+            <div className="speaker-2" key={line.id}>
               <div className="sound-cont">
                 <ReactAudioPlayer src={line.audio} autoPlay controls />
               </div>
               <div className="text-cont">
-                <p className={`text ${this.state.show ? '' : 'show'}`}>
-                  {line.text}
-                </p>
+                {<p className="text">{line.text}</p>}
               </div>
               {line.prompt && (
                 <div className="prompt-cont">
@@ -58,7 +56,7 @@ class BubbleSpeechFrame extends Component {
                 </div>
               )}
               <div className="toggle-text ">
-                <button className="grow_box" onClick={this.showText}>
+                <button className="grow_box" onClick={e => this.showText(e)}>
                   show text
                 </button>
               </div>
@@ -69,7 +67,7 @@ class BubbleSpeechFrame extends Component {
     });
     return (
       <div>
-        <h1>Bubble speech frame</h1>
+        <h1 className="centered">Bubble speech frame</h1>
         {dialogueData}
       </div>
     );

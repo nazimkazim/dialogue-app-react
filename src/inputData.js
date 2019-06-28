@@ -3,13 +3,15 @@ const lines = [
     text: `как дела?`,
     audio: 'audio/аудио1.mp3',
     prompt: '',
-    speaker: 1
+    speaker: 1,
+    id: 1
   },
   {
     text: 'у меня все хорошо, а как ты?',
     audio: 'audio/аудио2.mp3',
     prompt: 'Say that: I am OK, how about you?',
     speaker: 2,
+    id: 2,
     helpers: [
       {
         word_mother: "I'm all right",
@@ -26,6 +28,7 @@ const lines = [
     audio: 'audio/аудио3.mp3',
     prompt: '',
     speaker: 1,
+    id: 3,
     helpers: [
       {
         word_mother: 'Not bad',
@@ -42,6 +45,7 @@ const lines = [
     audio: 'audio/аудио4.mp3',
     speaker: 2,
     prompt: 'Say that: I have football on Saturday, why are you asking?',
+    id: 4,
     helpers: [
       {
         word_mother: 'Why are you asking?',
@@ -54,6 +58,7 @@ const lines = [
     audio: 'audio/аудио5.mp3',
     speaker: 1,
     prompt: '',
+    id: 5,
     helpers: [
       {
         word_mother: 'Just',
@@ -77,6 +82,7 @@ const lines = [
     text: 'Ты знаешь в субботу у меня работа, к сожалению, я не смогу прийти',
     audio: 'audio/аудио6.mp3',
     speaker: 2,
+    id: 6,
     prompt:
       'Say that: You know what, on Saturday I have football, unfortunately, I cannot come',
     helpers: [
@@ -99,6 +105,7 @@ const lines = [
     audio: 'audio/аудио7.mp3',
     speaker: 1,
     prompt: '',
+    id: 7,
     helpers: [
       {
         word_mother: 'Then',
@@ -115,6 +122,7 @@ const lines = [
       'Да, давай увидимся в Воскресенье, как раз, у буду свободен весь день',
     audio: 'audio/аудио8.mp3',
     speaker: 2,
+    id: 8,
     prompt:
       "Tell your partner: Yes, let's meet on Sunday, it just so happens that, I will be free on Sunday the entire day",
     helpers: [

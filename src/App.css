@@ -145,7 +145,6 @@ body {
 
 .show {
   display: block;
-  flex-direction: column;
 }
 
 /*
@@ -209,46 +208,6 @@ button.grow_box:hover::after {
   transform: scale(1, 1);
 }
 
-/* Ratings */
-
-.ratings {
-  display: inline-flex;
-  flex-direction: row-reverse;
-  margin-bottom: 7px;
-  margin-left: 7px;
-}
-
-.ratings input {
-  position: relative;
-  z-index: 1;
-  margin-top: -6px;
-  margin-left: -12px;
-}
-
-.ratings label {
-  width: 20px;
-  height: 20px;
-  margin: 0 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.1s linear;
-  cursor: pointer;
-}
-
-input[type='radio'] {
-  display: none;
-}
-
-.ratings label:hover,
-.rating label:hover ~ label {
-  background: #aaa;
-}
-
-.ratings input:checked ~ label {
-  background: #fc5;
-}
-
 /* Tooltip */
 
 .tooltip {
@@ -310,5 +269,9 @@ input[type='radio'] {
   justify-self: center;
   display: block;
   min-width: 300px;
+  text-align: center;
+}
+
+.centered {
   text-align: center;
 }
