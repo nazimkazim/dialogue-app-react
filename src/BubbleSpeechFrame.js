@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Tooltip from './Tooltip';
+import Button from './Button';
 
 class BubbleSpeechFrame extends Component {
   constructor(props) {
@@ -43,9 +44,7 @@ class BubbleSpeechFrame extends Component {
                 </div>
               )}
               <div className="toggle-text">
-                <button className="grow_box" onClick={e => this.showText(e)}>
-                  show text
-                </button>
+                <Button showText={this.showText} />
               </div>
               {line.helpers && <Tooltip tips={line.helpers} />}
             </div>
@@ -68,9 +67,7 @@ class BubbleSpeechFrame extends Component {
                 </div>
               )}
               <div className="toggle-text ">
-                <button className="grow_box" onClick={e => this.showText(e)}>
-                  show text
-                </button>
+                <Button showText={this.showText} />
               </div>
               {line.helpers && <Tooltip tips={line.helpers} />}
             </div>

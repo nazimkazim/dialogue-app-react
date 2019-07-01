@@ -2,7 +2,6 @@ import React from 'react';
 import helpIcon from './help.svg';
 
 function Tooltip(props) {
-  console.log(props.tips);
   return (
     <div className="tooltip">
       <div className="helpIcon">
@@ -12,7 +11,7 @@ function Tooltip(props) {
         {props.tips &&
           props.tips.map(tip => (
             <span className="pair-block">
-              <span>{tip.word_mother} -</span>
+              <span>{tip.word_mother} - </span>
               <span>{tip.word_target}</span>
             </span>
           ))}
