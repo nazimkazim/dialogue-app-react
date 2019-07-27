@@ -7,74 +7,70 @@ class BubbleSpeechFrame extends Component {
   constructor(props) {
     super(props);
     this.showText = this.showText.bind(this);
-    /* this.state = {
-      show: false
-    }; */
   }
 
   showText(e) {
     e.target.parentNode.parentNode.children[1].childNodes[0].classList.toggle(
       'show'
     );
-    /* 
-    const currentState = this.state.show;
-    this.setState({ show: !currentState }); */
   }
   render() {
     const { lines } = this.props;
-    const dialogueData = lines.map(line => {
+    console.log(lines);
+    const dialogueData = lines.parts.map(part => {
       return (
         <React.Fragment>
-          {line.speaker === 1 ? (
-            <div className="speaker-1" key={line.id}>
+          {part.speaker === 1 ? (
+            <div className="speaker-1">
               <div className="sound-cont">
                 <ReactAudioPlayer
-                  src={line.audio}
+                  src={part.audio}
                   autoPlay
                   controls
                   controlsList="nodownload"
                 />
               </div>
               <div className="text-cont">
-                {<p className="text">{line.text}</p>}
+                {<p className="text">{part.text}</p>}
               </div>
-              {line.prompt && (
+              {part.prompt && (
                 <div className="prompt-cont">
-                  <p className="prompt">{line.prompt}</p>
+                  <p className="prompt">{part.prompt}</p>
                 </div>
               )}
               <div className="toggle-text">
                 <Button showText={this.showText} />
               </div>
-              {line.helpers && <Tooltip tips={line.helpers} />}
+              {part.helpers && <Tooltip tips={part.helpers} />}
             </div>
           ) : (
-            <div className="speaker-2" key={line.id}>
+            <div className="speaker-2">
               <div className="sound-cont">
                 <ReactAudioPlayer
-                  src={line.audio}
+                  src={part.audio}
                   autoPlay
                   controls
                   controlsList="nodownload"
                 />
               </div>
               <div className="text-cont">
-                {<p className="text">{line.text}</p>}
+                {<p className="text">{part.text}</p>}
               </div>
-              {line.prompt && (
+              {part.prompt && (
                 <div className="prompt-cont">
-                  <p className="prompt">{line.prompt}</p>
+                  <p className="prompt">{part.prompt}</p>
                 </div>
               )}
               <div className="toggle-text ">
                 <Button showText={this.showText} />
               </div>
-              {line.helpers && <Tooltip tips={line.helpers} />}
+              {part.helpers && <Tooltip tips={part.helpers} />}
             </div>
           )}
         </React.Fragment>
       );
     });
+
     return (
       <div>
         <h1 className="centered">Bubble speech frame</h1>
