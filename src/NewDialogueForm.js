@@ -46,15 +46,44 @@ class NewDialogueForm extends Component {
       helperFirst: '',
       helperTarget: ''
     };
+    this.addMoreFields = this.addMoreFields.bind(this);
   }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
 
+  addMoreFields() {
+    const newField = {
+      id: 'dialogue03',
+      parts: []
+    };
+
+    const part = {
+      text: this.state.text,
+      speaker: this.state.speaker,
+      prompt: this.state.prompt,
+      helperFirst: this.state.helperFirst,
+      helperTarget: this.state.helperTarget
+    };
+    newField.parts.push(part);
+    //const joined = this.state.dialogues.concat(newField);
+    //this.setState({ dialogues: joined });
+    //console.log(this.state.dialogues);
+    console.log(newField.parts);
+    this.setState({
+      id: '',
+      text: '',
+      speaker: '',
+      prompt: '',
+      helperFirst: '',
+      helperTarget: ''
+    });
+  }
+
   render() {
     const { classes } = this.props;
-    console.log(this.state.dialogues);
+    //console.log(this.state.dialogues);
     return (
       <div>
         <h1>New Dialogue Form</h1>
@@ -116,7 +145,7 @@ class NewDialogueForm extends Component {
           />
         </form>
         <Fab color="primary" aria-label="Add" className={classes.fab}>
-          <AddIcon />
+          <AddIcon onClick={this.addMoreFields} />
         </Fab>
       </div>
     );
