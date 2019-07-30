@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = { dialogues: lines };
     this.findDialogue = this.findDialogue.bind(this);
+    this.saveDialogue = this.saveDialogue.bind(this);
   }
 
   findDialogue(id) {
@@ -20,6 +21,7 @@ class App extends Component {
 
   saveDialogue(newDialogue) {
     this.setState({ dialogues: [...this.state.dialogues, newDialogue] });
+    console.log(this.state.dialogues);
   }
 
   render() {
@@ -30,7 +32,7 @@ class App extends Component {
             <Switch>
               <Route
                 exact
-                path="/dialogue/new/"
+                path="/dialogue/new"
                 render={routeProps => (
                   <NewDialogueForm
                     saveDialogue={this.saveDialogue}

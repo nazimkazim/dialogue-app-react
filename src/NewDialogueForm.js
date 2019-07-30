@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   container: {
@@ -35,18 +36,25 @@ const speakers = [
   }
 ];
 
+const newField = {
+  id: 'dialogue3',
+  parts: []
+};
+
 class NewDialogueForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogues: this.props.dialogues,
+      audio: '',
       speaker: 1,
       text: '',
       prompt: '',
       helperFirst: '',
-      helperTarget: ''
+      helperTarget: '',
+      translation: ''
     };
     this.addMoreFields = this.addMoreFields.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   handleChange = name => event => {
@@ -54,32 +62,46 @@ class NewDialogueForm extends Component {
   };
 
   addMoreFields() {
-    const newField = {
-      id: 'dialogue03',
-      parts: []
-    };
-
-    const part = {
+    newField.parts.push({
       text: this.state.text,
       speaker: this.state.speaker,
+      audio: this.state.audio,
       prompt: this.state.prompt,
       helperFirst: this.state.helperFirst,
-      helperTarget: this.state.helperTarget
-    };
-    newField.parts.push(part);
-    //const joined = this.state.dialogues.concat(newField);
-    //this.setState({ dialogues: joined });
-    //console.log(this.state.dialogues);
-    console.log(newField.parts);
+      helperTarget: this.state.helperTarget,
+      translation: this.state.translation
+    });
+    console.log(newField);
     this.setState({
-      id: '',
+      audio: '',
       text: '',
-      speaker: '',
+      speaker: 1,
       prompt: '',
       helperFirst: '',
-      helperTarget: ''
+      helperTarget: '',
+      translation: ''
     });
   }
+
+  submitForm(newField) {
+    this.props.saveDialogue(newField);
+  }
+
+  /* submitForm() {
+    const joined = this.state.dialogues.concat(newField);
+    this.setState({ dialogues: joined });
+    console.log(this.state.dialogues);
+    this.setState({
+      helperTarget: '',
+      audio: '',
+      text: '',
+      speaker: 1,
+      prompt: '',
+      helperFirst: '',
+      helperTarget: '',
+      translation: ''
+    });
+  } */
 
   render() {
     const { classes } = this.props;
@@ -120,6 +142,22 @@ class NewDialogueForm extends Component {
             margin="normal"
           />
           <TextField
+            id="audio"
+            label="Audio"
+            className={classes.textField}
+            value={this.state.audio}
+            onChange={this.handleChange('audio')}
+            margin="normal"
+          />
+          <TextField
+            id="translation"
+            label="Translation"
+            className={classes.textField}
+            value={this.state.translation}
+            onChange={this.handleChange('translation')}
+            margin="normal"
+          />
+          <TextField
             id="prompt"
             label="Prompt"
             className={classes.textField}
@@ -147,6 +185,14 @@ class NewDialogueForm extends Component {
         <Fab color="primary" aria-label="Add" className={classes.fab}>
           <AddIcon onClick={this.addMoreFields} />
         </Fab>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.submitForm}
+          className={classes.button}
+        >
+          Primary
+        </Button>
       </div>
     );
   }
