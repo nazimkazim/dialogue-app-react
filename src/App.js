@@ -25,6 +25,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.dialogues);
     return (
       <div className="App">
         <div id="cont">
@@ -35,8 +36,8 @@ class App extends Component {
                 path="/dialogue/new"
                 render={routeProps => (
                   <NewDialogueForm
-                    saveDialogue={this.saveDialogue}
                     dialogues={this.state.dialogues}
+                    saveDialogue={this.saveDialogue}
                     {...routeProps}
                   />
                 )}

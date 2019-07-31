@@ -16,60 +16,61 @@ class BubbleSpeechFrame extends Component {
   }
   render() {
     const { lines } = this.props;
-    console.log(lines);
-    const dialogueData = lines.parts.map(part => {
-      return (
-        <React.Fragment>
-          {part.speaker === 1 ? (
-            <div className="speaker-1">
-              <div className="sound-cont">
-                <ReactAudioPlayer
-                  src={part.audio}
-                  autoPlay
-                  controls
-                  controlsList="nodownload"
-                />
-              </div>
-              <div className="text-cont">
-                {<p className="text">{part.text}</p>}
-              </div>
-              {part.prompt && (
-                <div className="prompt-cont">
-                  <p className="prompt">{part.prompt}</p>
+    const dialogueData =
+      lines &&
+      lines.parts.map(part => {
+        return (
+          <React.Fragment>
+            {part.speaker === 1 ? (
+              <div className="speaker-1">
+                <div className="sound-cont">
+                  <ReactAudioPlayer
+                    src={part.audio}
+                    autoPlay
+                    controls
+                    controlsList="nodownload"
+                  />
                 </div>
-              )}
-              <div className="toggle-text">
-                <Button showText={this.showText} />
-              </div>
-              {part.helpers && <Tooltip tips={part.helpers} />}
-            </div>
-          ) : (
-            <div className="speaker-2">
-              <div className="sound-cont">
-                <ReactAudioPlayer
-                  src={part.audio}
-                  autoPlay
-                  controls
-                  controlsList="nodownload"
-                />
-              </div>
-              <div className="text-cont">
-                {<p className="text">{part.text}</p>}
-              </div>
-              {part.prompt && (
-                <div className="prompt-cont">
-                  <p className="prompt">{part.prompt}</p>
+                <div className="text-cont">
+                  {<p className="text">{part.text}</p>}
                 </div>
-              )}
-              <div className="toggle-text ">
-                <Button showText={this.showText} />
+                {part.prompt && (
+                  <div className="prompt-cont">
+                    <p className="prompt">{part.prompt}</p>
+                  </div>
+                )}
+                <div className="toggle-text">
+                  <Button showText={this.showText} />
+                </div>
+                {part.helpers && <Tooltip tips={part.helpers} />}
               </div>
-              {part.helpers && <Tooltip tips={part.helpers} />}
-            </div>
-          )}
-        </React.Fragment>
-      );
-    });
+            ) : (
+              <div className="speaker-2">
+                <div className="sound-cont">
+                  <ReactAudioPlayer
+                    src={part.audio}
+                    autoPlay
+                    controls
+                    controlsList="nodownload"
+                  />
+                </div>
+                <div className="text-cont">
+                  {<p className="text">{part.text}</p>}
+                </div>
+                {part.prompt && (
+                  <div className="prompt-cont">
+                    <p className="prompt">{part.prompt}</p>
+                  </div>
+                )}
+                <div className="toggle-text ">
+                  <Button showText={this.showText} />
+                </div>
+                {part.helpers && <Tooltip tips={part.helpers} />}
+              </div>
+            )}
+          </React.Fragment>
+        );
+      });
 
     return (
       <div>

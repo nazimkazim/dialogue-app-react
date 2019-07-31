@@ -83,25 +83,9 @@ class NewDialogueForm extends Component {
     });
   }
 
-  submitForm(newField) {
+  submitForm() {
     this.props.saveDialogue(newField);
   }
-
-  /* submitForm() {
-    const joined = this.state.dialogues.concat(newField);
-    this.setState({ dialogues: joined });
-    console.log(this.state.dialogues);
-    this.setState({
-      helperTarget: '',
-      audio: '',
-      text: '',
-      speaker: 1,
-      prompt: '',
-      helperFirst: '',
-      helperTarget: '',
-      translation: ''
-    });
-  } */
 
   render() {
     const { classes } = this.props;
