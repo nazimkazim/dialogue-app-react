@@ -1,17 +1,19 @@
+const path = require('path');
+
 const lines = [
   {
     id: 'dialogue1',
     parts: [
       {
         text: `как дела?`,
-        audio: 'audio/аудио1.mp3',
+        audio: path.resolve('/audio/audio1.mp3'),
         prompt: '',
         speaker: 1,
         id: 1
       },
       {
         text: 'у меня все хорошо, а как ты?',
-        audio: 'audio/аудио2.mp3',
+        audio: path.resolve('/audio/audio2.mp3'),
         prompt: 'Say that: I am OK, how about you?',
         speaker: 2,
         id: 2,
@@ -28,7 +30,7 @@ const lines = [
       },
       {
         text: 'у меня тоже неплохо, кстати а что ты делаешь в субботу',
-        audio: 'audio/аудио3.mp3',
+        audio: path.resolve('/audio/audio3.mp3'),
         prompt: '',
         speaker: 1,
         id: 3,
@@ -45,7 +47,7 @@ const lines = [
       },
       {
         text: 'в субботу у меня футбол, а что?',
-        audio: 'audio/аудио4.mp3',
+        audio: path.resolve('/audio/audio4.mp3'),
         speaker: 2,
         prompt: 'Say that: I have football on Saturday, why are you asking?',
         id: 4,
@@ -58,7 +60,7 @@ const lines = [
       },
       {
         text: 'Просто я хотел пригласить тебя на день рождения',
-        audio: 'audio/аудио5.mp3',
+        audio: path.resolve('/audio/audio5.mp3'),
         speaker: 1,
         prompt: '',
         id: 5,
@@ -84,7 +86,7 @@ const lines = [
       {
         text:
           'Ты знаешь в субботу у меня работа, к сожалению, я не смогу прийти',
-        audio: 'audio/аудио6.mp3',
+        audio: path.resolve('/audio/audio6.mp3'),
         speaker: 2,
         id: 6,
         prompt:
@@ -106,7 +108,7 @@ const lines = [
       },
       {
         text: 'Тогда как насчет воскресенья',
-        audio: 'audio/аудио7.mp3',
+        audio: path.resolve('/audio/audio7.mp3'),
         speaker: 1,
         prompt: '',
         id: 7,
@@ -124,7 +126,7 @@ const lines = [
       {
         text:
           'Да, давай увидимся в Воскресенье, как раз, у буду свободен весь день',
-        audio: 'audio/аудио8.mp3',
+        audio: path.resolve('/audio/audio8.mp3'),
         speaker: 2,
         id: 8,
         prompt:
@@ -302,5 +304,7 @@ const lines = [
     ]
   }
 ];
+
+console.log(lines[0].parts[0].audio);
 
 export default lines;

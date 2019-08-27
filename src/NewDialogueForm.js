@@ -174,8 +174,9 @@ class NewDialogueForm extends Component {
           color="primary"
           onClick={this.submitForm}
           className={classes.button}
+          type="submit"
         >
-          Primary
+          Submit
         </Button>
       </div>
     );

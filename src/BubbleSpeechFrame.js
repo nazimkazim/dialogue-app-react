@@ -54,6 +54,7 @@ class BubbleSpeechFrame extends Component {
                     controlsList="nodownload"
                   />
                 </div>
+
                 <div className="text-cont">
                   {<p className="text">{part.text}</p>}
                 </div>
