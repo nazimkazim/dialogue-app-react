@@ -7,9 +7,9 @@ function Translation(props) {
       <div className="translationIcon">
         <img src={languageIcon} alt="language icon" />
       </div>
-      <div className="tip">
+      <div className="tip-translation">
         {props.translation &&
-            <p>{props.translation}</p>  
+            <p className="pair-block">{props.translation}</p>  
         }
       </div>
     </div>

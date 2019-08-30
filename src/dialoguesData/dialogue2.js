@@ -5,7 +5,7 @@ export default {
     id: 'dialogue2',
     parts: [
       {
-        text: `Привет Дэйл как у тебя дела`,
+        text: `Привет Дэйл как у тебя дела?`,
         translation:'Hi Dale how are you?',
         audio: 'audio/аудио1.mp3',
         prompt: '',
@@ -13,74 +13,73 @@ export default {
         id: 1
       },
       {
-        text: 'все хорошо, а как ты?',
+        text: 'Привет Терри, у меня не очень хорошо.',
         audio: 'audio/аудио2.mp3',
-        prompt: 'Say that: All good, how about you?',
+        prompt: 'Say: Hi Terry, I am not very well',
         speaker: 2,
         id: 2,
         helpers: [
           {
-            word_mother: "All good",
-            word_target: 'Все хорошо'
-          },
-          {
-            word_mother: 'And you?',
-            word_target: 'А как ты?'
+            word_mother: "Literally: I have not very well",
+            word_target: 'У меня не очень хорошо'
           }
         ]
       },
       {
-        text: 'у меня тоже неплохо, кстати а что ты делаешь в субботу',
+        text: 'Что случилось?',
+        translation:'What happen?',
         audio: 'audio/аудио3.mp3',
         prompt: '',
         speaker: 1,
         id: 3,
         helpers: [
           {
-            word_mother: 'Not bad',
-            word_target: 'неплохо'
+            word_mother: 'To happen',
+            word_target: 'случаться'
           },
           {
-            word_mother: 'By the way',
-            word_target: 'Кстати'
+            word_mother: 'What',
+            word_target: 'Что'
+          },
+          {
+            word_mother: 'Случилось',
+            word_target: 'past form of "случаться"'
           }
+
         ]
       },
       {
-        text: 'в субботу у меня футбол, а что?',
+        text: 'У меня болит нога, я играл теннис вчера.',
         audio: 'audio/аудио4.mp3',
         speaker: 2,
-        prompt: 'Say that: I have football on Saturday, why are you asking?',
+        prompt: 'Say: My leg hurts, I played tennis yesterday',
         id: 4,
         helpers: [
           {
-            word_mother: 'Why are you asking?',
-            word_target: 'А что?'
+            word_mother: 'Hurt',
+            word_target: 'болит'
           }
         ]
       },
       {
-        text: 'Просто я хотел пригласить тебя на день рождения',
+        text: 'Как ты её повредил?',
+        translation:'How did you hurt it?',
         audio: 'audio/аудио5.mp3',
         speaker: 1,
         prompt: '',
         id: 5,
         helpers: [
           {
-            word_mother: 'Just',
-            word_target: 'Просто'
+            word_mother: 'It',
+            word_target: 'её (referring to the leg (femenine))'
           },
           {
-            word_mother: 'Wanted',
-            word_target: 'Хотел (past simple form)'
+            word_mother: 'To hurt',
+            word_target: 'Повреждать'
           },
           {
-            word_mother: 'To invite',
-            word_target: 'Пригласить'
-          },
-          {
-            word_mother: 'Birthday',
-            word_target: 'День рождения'
+            word_mother: 'Повредил (ты, referring to male)',
+            word_target: 'past form of "повреждать"'
           }
         ]
       },
