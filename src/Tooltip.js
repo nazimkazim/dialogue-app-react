@@ -1,6 +1,5 @@
 import React from 'react';
-import helpIcon from './help.svg';
-
+import helpIcon from './images/help.svg';
 function Tooltip(props) {
   return (
     <div className="tooltip">

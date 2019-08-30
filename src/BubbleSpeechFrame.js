@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import Tooltip from './Tooltip';
+import Translation from './Translation';
 import Button from './Button';
 
 class BubbleSpeechFrame extends Component {
@@ -15,6 +16,7 @@ class BubbleSpeechFrame extends Component {
     );
   }
   render() {
+    const helper = true;
     const { lines } = this.props;
     const dialogueData =
       lines &&
@@ -43,6 +45,7 @@ class BubbleSpeechFrame extends Component {
                   <Button showText={this.showText} />
                 </div>
                 {part.helpers && <Tooltip tips={part.helpers} />}
+                {part.translation && <Translation translation={part.translation} />}
               </div>
             ) : (
               <div className="speaker-2">
@@ -66,7 +69,8 @@ class BubbleSpeechFrame extends Component {
                 <div className="toggle-text ">
                   <Button showText={this.showText} />
                 </div>
-                {part.helpers && <Tooltip tips={part.helpers} />}
+                {part.helpers && <Tooltip tips={part.helpers}/>}
+                {part.translation && <Translation translation={part.translation} />}
               </div>
             )}
           </React.Fragment>

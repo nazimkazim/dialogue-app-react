@@ -1,8 +1,12 @@
 export default {
+    description:'The dialogue aims at practicing invitation and talking about daily activities',
+    languagePair:'eng-rus',
+    level:'Pre-intermediate',
     id: 'dialogue2',
     parts: [
       {
-        text: `как ты?`,
+        text: `Привет Дэйл как у тебя дела`,
+        translation:'Hi Dale how are you?',
         audio: 'audio/аудио1.mp3',
         prompt: '',
         speaker: 1,
@@ -11,13 +15,13 @@ export default {
       {
         text: 'все хорошо, а как ты?',
         audio: 'audio/аудио2.mp3',
-        prompt: 'Say that: I am OK, how about you?',
+        prompt: 'Say that: All good, how about you?',
         speaker: 2,
         id: 2,
         helpers: [
           {
-            word_mother: "I'm all right",
-            word_target: 'У меня все хорошо'
+            word_mother: "All good",
+            word_target: 'Все хорошо'
           },
           {
             word_mother: 'And you?',

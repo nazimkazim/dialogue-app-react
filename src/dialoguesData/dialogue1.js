@@ -1,6 +1,9 @@
 const path = require('path');
 
 export default {
+    description:'The dialogue aims at improving basic conversational skills, such as greeting and daily interactions',
+    languagePair:'eng-rus',
+    level:'Beginner',
     id: 'dialogue1',
     parts: [
       {

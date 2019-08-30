@@ -219,6 +219,15 @@ button.grow_box:hover::after {
   z-index: 10;
 }
 
+.translation-tip {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+
 .tooltip:hover .tip {
   opacity: 1;
   visibility: visible;
@@ -226,6 +235,16 @@ button.grow_box:hover::after {
   margin-bottom: -4rem;
   transition: all 0.35s;
 }
+
+.translation-tip:hover .tip {
+  opacity: 1;
+  visibility: visible;
+  margin-left: 0.5rem;
+  margin-bottom: -4rem;
+  transition: all 0.35s;
+}
+
+
 .tip {
   justify-content: center;
   opacity: 0;
@@ -262,6 +281,14 @@ button.grow_box:hover::after {
 }
 
 .helpIcon img {
+  width: 100%;
+}
+
+.translationIcon {
+  width: 30px;
+}
+
+.translationIcon img {
   width: 100%;
 }
 
