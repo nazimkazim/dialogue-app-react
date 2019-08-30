@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BubbleSpeechFrame from './BubbleSpeechFrame';
-import lines from './inputData';
+import lines from './dialoguesData/inputData';
 import NewDialogueForm from './NewDialogueForm';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
