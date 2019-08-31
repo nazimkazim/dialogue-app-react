@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import BubbleSpeechFrame from './BubbleSpeechFrame';
+import DialogueShuffleFrame from './DialogueShuffleFrame';
 import lines from './dialoguesData/inputData';
+import shuffleLines from './dialogueShuffleData/inputData'
 import NewDialogueForm from './NewDialogueForm';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
@@ -25,7 +27,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.dialogues);
+    //console.log(this.state.dialogues);
     return (
       <div className="App">
         <div id="cont">
@@ -48,6 +50,15 @@ class App extends Component {
                 render={routeProps => (
                   <BubbleSpeechFrame
                     lines={this.findDialogue(routeProps.match.params.id)}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/shuffle-dialogue"
+                render={routeProps => (
+                  <DialogueShuffleFrame
+                    lines={shuffleLines}
                   />
                 )}
               />

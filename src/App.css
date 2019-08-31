@@ -327,4 +327,5 @@ button.grow_box:hover::after {
 
 .centered {
   text-align: center;
+  color:'white'
 }

@@ -16,7 +16,6 @@ class BubbleSpeechFrame extends Component {
     );
   }
   render() {
-    const helper = true;
     const { lines } = this.props;
     const dialogueData =
       lines &&
@@ -79,7 +78,7 @@ class BubbleSpeechFrame extends Component {
 
     return (
       <div>
-        <h1 className="centered">Bubble speech frame</h1>
+        <h1 className="centered" style={{color:'white'}}>{lines.name}</h1>
         {dialogueData}
       </div>
     );
