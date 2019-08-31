@@ -5,7 +5,11 @@ class DialogueShuffleFrame extends Component {
     formatWords(words) {
         const splittedWords = words.split(' ')
         const shuffledArray = this.shuffle(splittedWords)
-        return shuffledArray
+        return (
+            shuffledArray.map(word => (
+                <span className="word-to-drop">{word}</span>
+            ))
+        )
         console.log(shuffledArray)
     }
 
@@ -24,7 +28,7 @@ class DialogueShuffleFrame extends Component {
         //console.log(this.props)
         const shuffles = lines[0].parts && (
             lines[0].parts.map(element => (
-                <li style={{color:'white'}}>{element.speaker}{': '}{this.formatWords(element.words)}</li>
+                    <li className="line"><span>{element.speaker}{": "}</span><span>{this.formatWords(element.words)}</span></li>
             ))
         )
         console.log(shuffles)

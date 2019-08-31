@@ -329,3 +329,14 @@ button.grow_box:hover::after {
   text-align: center;
   color:'white'
 }
+
+.word-to-drop {
+  margin-right: 1rem;
+  padding:.3rem;
+  border: 1px solid rgb(0, 255, 221);
+}
+
+.line {
+  margin-top:1rem;
+  color:white;
+}
