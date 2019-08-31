@@ -205,6 +205,80 @@ export default {
             word_target: 'Очень долго'
           }
         ]
+      },
+      {
+        text:
+          'Хорошо, если не секрет, можешь сказать чем мы будем там заниматься',
+        audio: 'audio/аудио8.mp3',
+        prompt:'Say: Good, if it is not a secret, could you tell we what (чем) we will do (заниматься) there?',
+        speaker: 2,
+        id: 9,
+        helpers: [
+          {
+            word_mother: "If",
+            word_target: 'если'
+          },
+          {
+            word_mother: 'Not a secret',
+            word_target: 'Не секрет'
+          }
+        ]
+      },
+      {
+        text:
+          'Конечно не секрет, мы будем, играть в футбол, играть на гитаре, петь песни, кататься на велосипеде.А ты умеешь играть на гитаре?',
+        audio: 'audio/аудио8.mp3',
+        translation:'Of course it is not a secret, we will play football, play the guitar, sing songs, ride bikes. Can you play the guitar?',
+        speaker: 1,
+        id: 9,
+        helpers: [
+          {
+            word_mother: "Can you play the guitar?",
+            word_target: 'Ты умеешь играть на гитаре?'
+          }
+        ]
+      },
+      {
+        text:
+          'Да я умею играть на гитаре, я учился в музыкальной школе',
+        audio: 'audio/аудио8.mp3',
+        prompt:'Say: Yes, I can play the guitar, I studied at musical school',
+        speaker: 2,
+        id: 9,
+        helpers: [
+          {
+            word_mother: "Music School",
+            word_target: 'музыкальная школа'
+          }
+        ]
+      },
+      {
+        text:
+          'Отлично, я очень рада, мы встречаемся в Воскресенье в 8 часов утра. Пока',
+        audio: 'audio/аудио8.mp3',
+        translation:'We meet at 8 in the morning, bye',
+        speaker: 1,
+        id: 9,
+        helpers: [
+          {
+            word_mother: "We meet",
+            word_target: 'Мы встречаемся'
+          }
+        ]
+      },
+      {
+        text:
+          'Пока, увидимся в Воскресенье',
+        audio: 'audio/аудио8.mp3',
+        prompt:'Say:Bye, see you on Sunday',
+        speaker: 2,
+        id: 9,
+        helpers: [
+          {
+            word_mother: "See you",
+            word_target: 'увидимся'
+          }
+        ]
       }
     ]
   }
