@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
+import {SortableContainer, SortableElement} from 'react-sortable-hoc'
+
+
+const SortableItem = SortableElement(({value}) => <span className="word-to-drop">{value}</span>);
 
 class DialogueShuffleFrame extends Component {
-
     formatWords(words) {
         const splittedWords = words.split(' ')
         const shuffledArray = this.shuffle(splittedWords)
         return (
-            shuffledArray.map(word => (
-                <span className="word-to-drop">{word}</span>
+            shuffledArray.map((word, index) => (
+                <SortableItem key={`item-${word}`} index={index} value={word} />
             ))
         )
-        console.log(shuffledArray)
     }
+
+    
 
     shuffle(a) {
         var j, x, i;
@@ -43,4 +47,4 @@ class DialogueShuffleFrame extends Component {
     }
 }
 
-export default DialogueShuffleFrame;
+export default SortableContainer(DialogueShuffleFrame);
