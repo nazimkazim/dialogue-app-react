@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import {SortableContainer, SortableElement,arrayMove} from 'react-sortable-hoc';
-//import data from './dialogueShuffleData/inputData';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-
-const SortableItem = SortableElement(({value}) => <span className="word-to-drop">{value}</span>);
 
 class DialogueShuffleFrame extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            //items:data
+            value:'car'
         }
     }
 
@@ -19,7 +16,13 @@ class DialogueShuffleFrame extends Component {
         const shuffledArray = this.shuffle(splittedWords)
         return (
             shuffledArray.map((word, index) => (
-                <SortableItem key={`item-${word}`} onSortEnd={this.onSortEnd} index={index} value={word} />
+                <>
+                    <input className="word-to-drop-input" value={this.state.value} onChange={() => {console.log('clicked')}} />
+                    <CopyToClipboard text={word}>
+                        <span key={index} value={word} className="word-to-drop">{word}</span>
+                    </CopyToClipboard>
+                </>
+                
             ))
         )
     }
@@ -34,12 +37,6 @@ class DialogueShuffleFrame extends Component {
         }
         return a;
     }
-
-    onSortEnd = ({oldIndex, newIndex}) => {
-        this.setState(({items}) => ({
-          items: arrayMove(items, oldIndex, newIndex),
-        }));
-      };
 
     render() {
         const {lines} = this.props
@@ -61,4 +58,4 @@ class DialogueShuffleFrame extends Component {
     }
 }
 
-export default SortableContainer(DialogueShuffleFrame);
+export default DialogueShuffleFrame;

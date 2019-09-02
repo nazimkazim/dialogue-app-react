@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BubbleSpeechFrame from './BubbleSpeechFrame';
 import DialogueShuffleFrame from './DialogueShuffleFrame';
+import DialogueShuffleFrameClick from './DialogueShuffleFrameClick';
 import lines from './dialoguesData/inputData';
 import shuffleLines from './dialogueShuffleData/inputData'
 import NewDialogueForm from './NewDialogueForm';
@@ -58,6 +59,15 @@ class App extends Component {
                 path="/shuffle-dialogue"
                 render={routeProps => (
                   <DialogueShuffleFrame
+                    lines={shuffleLines}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/shuffle-dialogue-click"
+                render={routeProps => (
+                  <DialogueShuffleFrameClick
                     lines={shuffleLines}
                   />
                 )}
