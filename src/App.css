@@ -342,9 +342,7 @@ button.grow_box:hover::after {
 }
 
 .word-to-drop-input {
-  width:3rem;
   display: inline-block;
-  border:2px solid red;
 }
 
 .line {
