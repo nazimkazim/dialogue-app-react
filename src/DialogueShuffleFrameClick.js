@@ -49,9 +49,9 @@ class DialogueShuffleFrame extends Component {
         const splittedWords = words.split(' ')
         const shuffledArray = this.shuffle(splittedWords)
         return (
-            shuffledArray.map((word) => (
+            shuffledArray.map((word, index) => (
                 <>
-                    <input className="word-to-drop-input" onBlur={this.writeSometihng} size={2} />
+                    <input className="word-to-drop-input" id={index} onBlur={this.writeSometihng} size={2} />
                     <CopyToClipboard text={word}>
                         <span key={uid(word)} value={word} className="word-to-drop">{word}</span>
                     </CopyToClipboard>
