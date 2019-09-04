@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {uid} from 'react-uid';
+import { MdDoneAll } from "react-icons/md";
 
 
-const pushArr = [];
+
+var pushArr = [];
+var points = 0;
 class DialogueShuffleFrame extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pushArr:[]
+            showCorrect:false
         }
         this.writeSometihng = this.writeSometihng.bind(this)
     }
@@ -24,7 +27,14 @@ class DialogueShuffleFrame extends Component {
         //console.log(joinedStr);
         lines[0].parts.map((obj) => {
             let line = obj.words
-            console.log(joinedStr == line)
+            if (joinedStr === line) {
+                this.setState({
+                    showCorrect:true
+                })
+                pushArr = [];
+                points += 80;
+            }
+                
         })
     }
 
@@ -60,7 +70,7 @@ class DialogueShuffleFrame extends Component {
             lines[0].parts.map((element,i) => (
                 <>
                     <li className="line" key={i}><span>{element.speaker}{": "}</span><span>{this.formatWords(element.words)}</span></li>
-                    <div type="button" onClick={() => {this.checkLines(pushArr, lines)}} style={{color:'white'}}>check</div>
+                    <MdDoneAll type="button" onClick={() => {this.checkLines(pushArr, lines)}} style={{color:'white'}}/>
                 </>
             ))
         )
@@ -71,7 +81,9 @@ class DialogueShuffleFrame extends Component {
                     <ul>
                         {shuffles}
                     </ul>
-                    <button className="grow_box">Check</button>
+                    {this.state.showCorrect ? <div>Correct</div> : <div>Incorrect</div>} 
+                    <div>{points}</div> 
+
                 </>
         )
     }
