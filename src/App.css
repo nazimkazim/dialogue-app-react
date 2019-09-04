@@ -350,3 +350,26 @@ button.grow_box:hover::after {
   margin-top:1rem;
   color:white;
 }
+
+.lines-container {
+  list-style-type: none;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline-start: 0;
+}
+
+.reactangular {
+  width:80px;
+  height:30px;
+  padding:.6rem;
+  align-self: auto;
+  border:1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  cursor: pointer;
+}

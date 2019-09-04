@@ -33,9 +33,16 @@ class DialogueShuffleFrame extends Component {
                 })
                 pushArr = [];
                 points += 80;
+            } else {
+                pushArr = [];
             }
                 
         })
+    }
+
+    reset() {
+        pushArr.length = 0
+        console.log('clicked')
     }
 
     formatWords(words) {
@@ -78,12 +85,12 @@ class DialogueShuffleFrame extends Component {
         return (
                 <>
                     <h1 className="centered" style={{color:'white'}}>Dialogue shuffle frame</h1>
-                    <ul>
+                    <ul className="lines-container">
                         {shuffles}
                     </ul>
-                    {this.state.showCorrect ? <div>Correct</div> : <div>Incorrect</div>} 
+                    {<div className="reactangular">{this.state.showCorrect ? 'Correct' : 'Incorrect'}</div>} 
                     <div>{points}</div> 
-
+                    <div className="reactangular" onClick={() => this.reset()}>Reset</div>
                 </>
         )
     }
