@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {uid} from 'react-uid';
-import { MdDoneAll } from "react-icons/md";
+import { MdDoneAll,MdCake  } from "react-icons/md";
+import ReactDOM from 'react-dom';
 
 
 
@@ -11,7 +12,8 @@ class DialogueShuffleFrame extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showCorrect:false
+            showCorrect:false,
+            preview:''
         }
         this.writeSometihng = this.writeSometihng.bind(this)
     }
@@ -19,11 +21,13 @@ class DialogueShuffleFrame extends Component {
     writeSometihng(e) {
         e.preventDefault()
         pushArr.push(e.target.value)
-        console.log(pushArr)
+        this.preview(`${pushArr} `)
+        //console.log(pushArr)
     }
 
     checkLines(arr, lines) {
         let joinedStr = arr.join(' ');
+        this.preview(joinedStr)
         //console.log(joinedStr);
         lines[0].parts.map((obj) => {
             let line = obj.words
@@ -40,8 +44,23 @@ class DialogueShuffleFrame extends Component {
         })
     }
 
+    preview(str) {
+        this.setState({
+            preview:str
+        })
+    }
+
+
+    clear = (ref) => {
+        const inputElements = ReactDOM.findDOMNode(ref.target).parentNode.getElementsByTagName('input');
+        [...inputElements].forEach(el => el.value = '')
+      }
+
     reset() {
         pushArr.length = 0
+        this.setState({
+            preview:""
+        })
         console.log('clicked')
     }
 
@@ -51,7 +70,7 @@ class DialogueShuffleFrame extends Component {
         return (
             shuffledArray.map((word, index) => (
                 <>
-                    <input className="word-to-drop-input" id={index} onBlur={this.writeSometihng} size={2} />
+                    <input className="word-to-drop-input" id={index} ref="target" onBlur={this.writeSometihng} size={2} />
                     <CopyToClipboard text={word}>
                         <span key={uid(word)} value={word} className="word-to-drop">{word}</span>
                     </CopyToClipboard>
@@ -78,6 +97,7 @@ class DialogueShuffleFrame extends Component {
                 <>
                     <li className="line" key={i}><span>{element.speaker}{": "}</span><span>{this.formatWords(element.words)}</span></li>
                     <MdDoneAll type="button" onClick={() => {this.checkLines(pushArr, lines)}} style={{color:'white'}}/>
+                    <MdCake onClick={this.clear}/>
                 </>
             ))
         )
@@ -91,6 +111,7 @@ class DialogueShuffleFrame extends Component {
                     {<div className="reactangular">{this.state.showCorrect ? 'Correct' : 'Incorrect'}</div>} 
                     <div>{points}</div> 
                     <div className="reactangular" onClick={() => this.reset()}>Reset</div>
+                    <div className="preview">{this.state.preview}</div>
                 </>
         )
     }
