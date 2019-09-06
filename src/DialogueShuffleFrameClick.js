@@ -25,8 +25,8 @@ class DialogueShuffleFrame extends Component {
             pushArr:this.state.pushArr.concat(e.target.value)
             
         },function () {
-            console.log(this.state.pushArr)
             this.preview(this.state.pushArr.join(' '))
+            console.log(this.state.pushArr)
         })
         
         
@@ -36,17 +36,15 @@ class DialogueShuffleFrame extends Component {
 
     checkLines(arr, lines) {
         let joinedStr = arr.join(' ');
-        this.preview(joinedStr)
         console.log(joinedStr);
         lines[0].parts.map((obj) => {
             let line = obj.words
-            if (joinedStr === line) {
+            if (joinedStr.trim() === line) {
+                
                 this.setState({
-                    showCorrect:true
-                })
-                this.setState({
+                    showCorrect:true,
                     pushArr:[],
-                    points: this.state.points + 80
+                    points:this.state.points + 80
                 })
                 
             } else {
