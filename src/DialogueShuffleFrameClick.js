@@ -6,40 +6,56 @@ import ReactDOM from 'react-dom';
 
 
 
-var pushArr = [];
-var points = 0;
 class DialogueShuffleFrame extends Component {
     constructor(props) {
         super(props)
         this.state = {
             showCorrect:false,
-            preview:''
+            preview:'',
+            pushArr:[],
+            points:0
         }
         this.writeSometihng = this.writeSometihng.bind(this)
     }
     
     writeSometihng(e) {
         e.preventDefault()
-        pushArr.push(e.target.value)
-        this.preview(`${pushArr} `)
-        //console.log(pushArr)
+
+        this.setState({
+            pushArr:this.state.pushArr.concat(e.target.value)
+            
+        },function () {
+            console.log(this.state.pushArr)
+            this.preview(this.state.pushArr.join(' '))
+        })
+        
+        
+        
+        
     }
 
     checkLines(arr, lines) {
         let joinedStr = arr.join(' ');
         this.preview(joinedStr)
-        //console.log(joinedStr);
+        console.log(joinedStr);
         lines[0].parts.map((obj) => {
             let line = obj.words
             if (joinedStr === line) {
                 this.setState({
                     showCorrect:true
                 })
-                pushArr = [];
-                points += 80;
+                this.setState({
+                    pushArr:[],
+                    points: this.state.points + 80
+                })
+                
             } else {
-                pushArr = [];
+                this.setState({
+                    pushArr:[]
+                })
             }
+
+            return false
                 
         })
     }
@@ -57,7 +73,9 @@ class DialogueShuffleFrame extends Component {
       }
 
     reset() {
-        pushArr.length = 0
+        this.setState({
+            pushArr:[]
+        })
         this.setState({
             preview:""
         })
@@ -96,7 +114,7 @@ class DialogueShuffleFrame extends Component {
             lines[0].parts.map((element,i) => (
                 <>
                     <li className="line" key={i}><span>{element.speaker}{": "}</span><span>{this.formatWords(element.words)}</span></li>
-                    <MdDoneAll type="button" onClick={() => {this.checkLines(pushArr, lines)}} style={{color:'white'}}/>
+                    <MdDoneAll type="button" onClick={() => {this.checkLines(this.state.pushArr, lines)}} style={{color:'white'}}/>
                     <MdCake onClick={this.clear}/>
                 </>
             ))
@@ -108,8 +126,8 @@ class DialogueShuffleFrame extends Component {
                     <ul className="lines-container">
                         {shuffles}
                     </ul>
-                    {<div className="reactangular">{this.state.showCorrect ? 'Correct' : 'Incorrect'}</div>} 
-                    <div>{points}</div> 
+                    {this.state.showCorrect && <div className="reactangular">Correct</div>} 
+                    <div>{this.state.points}</div> 
                     <div className="reactangular" onClick={() => this.reset()}>Reset</div>
                     <div className="preview">{this.state.preview}</div>
                 </>

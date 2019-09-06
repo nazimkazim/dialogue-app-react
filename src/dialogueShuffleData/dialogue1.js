@@ -10,6 +10,9 @@ export default {
     },
     {   speaker:'Speaker1',
         words:'What are your plans for Saturday?'
+    },
+    {   speaker:'Speaker2',
+        words:'I am planning to play Football'
     }
     ]
 }
