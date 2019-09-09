@@ -327,10 +327,6 @@ button.grow_box:hover::after {
   color:'white'
 }
 
-.word-to-drop-input {
-  display: inline-block;
-}
-
 .line {
   margin-top:1rem;
   color:white;
@@ -346,7 +342,7 @@ button.grow_box:hover::after {
   padding-inline-start: 0;
 }
 
-.reactangular {
+.rectangular {
   width:80px;
   height:30px;
   padding:.6rem;

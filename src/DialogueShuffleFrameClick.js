@@ -25,11 +25,6 @@ const LeftHalf = styled.div`
   overflow-y: scroll;
 `;
 
-const RightHalf = styled.div`
-  /* background-color: #f1f1f1; */
-  flex: 1;
-`;
-
 const ListContainer = styled.ul`
   background: white;
 `;
@@ -70,7 +65,7 @@ const WordsContainer = styled.div`
   background-color: pink;
 `;
 
-const ButtonContainer = styled.div`
+const ButtonsSection = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -82,7 +77,11 @@ const InputContainer = styled.span`
   display:block;
   width:80%;
   & > input {
-    width:100%;
+    width:90%;
+  }
+
+  & > span {
+    margin-left:1rem;
   }
 `
 
@@ -112,12 +111,18 @@ const ShowText = styled.p`
   display:none;
 `
 
+const ButtonContainer = styled.div`
+  flex:1;
+  align-items: center;
+`
+
+
+
 class DialogueShuffleFrame extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showCorrect: false,
-      preview: "",
       inputAnswer: '',
       points: 0    
     };
@@ -131,9 +136,6 @@ class DialogueShuffleFrame extends Component {
     this.setState(
       {
         inputAnswer: (e.target.value)
-      },
-      function() {
-        this.preview(this.state.inputAnswer);
       }
     );
   }
@@ -157,12 +159,6 @@ class DialogueShuffleFrame extends Component {
     });
   }
 
-  preview(str) {
-    this.setState({
-      preview: str
-    });
-  }
-
   clear = ref => {
     const inputElements = ReactDOM.findDOMNode(
       ref.target
@@ -171,19 +167,9 @@ class DialogueShuffleFrame extends Component {
     console.log("cl");
   };
 
-  reset() {
-    this.setState({
-      inputAnswer: ''
-    });
-    this.setState({
-      preview: ""
-    });
-    console.log("clicked");
-  }
-
   showPhrase(e) {
-    console.log(e.target.parentNode.parentNode.children[1].children[2].children[0])
-    e.target.parentNode.parentNode.children[1].children[2].children[0].classList.toggle(
+    //console.log(e.target.parentNode.parentNode.parentNode.children[1].children[2].children[0])
+    e.target.parentNode.parentNode.parentNode.children[1].children[2].children[0].classList.toggle(
       'show'
     )
   }
@@ -230,12 +216,14 @@ class DialogueShuffleFrame extends Component {
           <WordsContainer>
             <InputContainer>
               <input
-                className="word-to-drop-input"
                 id={i}
                 ref="target"
                 onChange={this.writeSometihng}
                 size={2}
               />
+              <span color="warning" onClick={this.clear} size="small">
+                x
+              </span>
             </InputContainer>
             <Words>{this.formatWords(element.words)}</Words>
             <ShowContainer>
@@ -243,7 +231,8 @@ class DialogueShuffleFrame extends Component {
             </ShowContainer>
           </WordsContainer>
 
-          <ButtonContainer>
+          <ButtonsSection>
+            <ButtonContainer>
             <Button
               color="success"
               onClick={() => {
@@ -253,9 +242,8 @@ class DialogueShuffleFrame extends Component {
             >
               Check
             </Button>
-            <Button color="warning" onClick={this.clear} size="small">
-              Clear
-            </Button>
+            </ButtonContainer>
+            <ButtonContainer>
             <Button
               color="success"
               onClick={this.showPhrase}
@@ -263,14 +251,18 @@ class DialogueShuffleFrame extends Component {
             >
             Show Phrase
             </Button>
-          </ButtonContainer>
+            </ButtonContainer>
+          </ButtonsSection>
         </ListItem>
       ));
 
     return (
       <>
         <h1 className="centered" style={{ color: "white" }}>
-          Dialogue shuffle frame
+          Dialogue shuffle frame <span>{this.state.showCorrect && (
+              <div className="reactangular">Correct</div>
+            )}
+            <div>{this.state.points}</div></span>
         </h1>
         <Container>
           <LeftHalf>
@@ -278,17 +270,6 @@ class DialogueShuffleFrame extends Component {
               {shuffles}
             </ListContainer>
           </LeftHalf>
-
-          <RightHalf>
-            {this.state.showCorrect && (
-              <div className="reactangular">Correct</div>
-            )}
-            <div>{this.state.points}</div>
-            <div className="reactangular" onClick={() => this.reset()}>
-              Reset
-            </div>
-            <div className="preview">{this.state.preview}</div>
-          </RightHalf>
         </Container>
       </>
     );
