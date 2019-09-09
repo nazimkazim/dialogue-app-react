@@ -70,6 +70,7 @@ const ButtonsSection = styled.div`
   align-items: center;
   flex-direction: column;
   flex: auto;
+  justify-content: center;
 `;
 
 const InputContainer = styled.span`
@@ -105,6 +106,7 @@ const ShowContainer = styled.div`
   min-height:50px;
   min-width:50%;
   background-color:blue
+  margin-bottom:1rem;
 `
 
 const ShowText = styled.p`
@@ -113,7 +115,6 @@ const ShowText = styled.p`
 
 const ButtonContainer = styled.div`
   flex:1;
-  align-items: center;
 `
 
 
