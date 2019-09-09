@@ -10,16 +10,17 @@ const Container = styled.div`
   overflow-y: hidden;
   margin: 1em 0;
   color: #fff;
-  height:500px;
+  width:90%;
+  height: 500px;
   border: 1px solid #333;
   align-items: center;
 `;
 
 const LeftHalf = styled.div`
   background-color: #f1f1f1;
-  flex: 5;  
-  height:100%;
-  overflow-y:scroll;
+  flex: 5;
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 const RightHalf = styled.div`
@@ -28,40 +29,58 @@ const RightHalf = styled.div`
 `;
 
 const ListContainer = styled.ul`
-  background:yellow;
-`
+  background: yellow;
+`;
 
 const ListItem = styled.div`
-  width:100%;
-  display:flex;
-  height:auto;
-  background:green;
-  position:relative;
-  margin-top:10px;
+  width: 100%;
+  display: flex;
+  min-height: 80px;
+  background: green;
+  position: relative;
+  margin-top: 10px;
   justify-content: space-between;
-`
+`;
 
 const NamePlate = styled.div`
-  width:auto;
-  height:auto;
-  padding:.3rem;
-  font-size:14px;
-  position:absolute;
-  top:0;
-  left:0;
-  background-color:red;
-`
+  width: auto;
+  height: auto;
+  padding: 0.3rem;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: red;
+`;
 
 const NamePlateContainer = styled.div`
-  flex:4;
-  position:relative;
-  background:blue;
-`
+  flex: 2;
+  position: relative;
+  background-color: blue;
+`;
 
 const WordsContainer = styled.div`
-  flex:8;
-  height:100%:
-  background-color:pink;
+  flex: 8;
+  min-height: 100%;
+  background-color: pink;
+`;
+
+const CheckLinesBox = styled.span`
+  flex: 1;
+  background-color: blue;
+`;
+
+const ClearInputBox = styled.span`
+  flex: 1;
+  background-color: green;
+`;
+
+const InputContainer = styled.span`
+  display:block;
+`
+
+const Words = styled.span`
+  display:block;
 `
 
 class DialogueShuffleFrame extends Component {
@@ -70,7 +89,7 @@ class DialogueShuffleFrame extends Component {
     this.state = {
       showCorrect: false,
       preview: "",
-      pushArr: [],
+      inputAnswer: '',
       points: 0
     };
     this.writeSometihng = this.writeSometihng.bind(this);
@@ -81,33 +100,33 @@ class DialogueShuffleFrame extends Component {
 
     this.setState(
       {
-        pushArr: this.state.pushArr.concat(e.target.value)
+        inputAnswer: (e.target.value)
       },
       function() {
-        this.preview(this.state.pushArr.join(" "));
-        console.log(this.state.pushArr);
+        this.preview(this.state.inputAnswer);
+        console.log(this.state.inputAnswer);
       }
     );
   }
 
-  checkLines(arr, lines) {
-    let joinedStr = arr.join(" ");
-    console.log(joinedStr);
+  checkLines(str, lines) {
+    
+    console.log(str);
     lines[0].parts.map(obj => {
       let line = obj.words;
-      if (joinedStr.trim() === line) {
+      if (str.trim() === line) {
         this.setState({
           showCorrect: true,
-          pushArr: [],
+          inputAnswer: [],
           points: this.state.points + 80
         });
       } else {
         this.setState({
-          pushArr: []
+          inputAnswer: ''
         });
       }
 
-      return false;
+      return true;
     });
   }
 
@@ -122,11 +141,12 @@ class DialogueShuffleFrame extends Component {
       ref.target
     ).parentNode.getElementsByTagName("input");
     [...inputElements].forEach(el => (el.value = ""));
+    console.log("cl");
   };
 
   reset() {
     this.setState({
-      pushArr: []
+      inputAnswer: []
     });
     this.setState({
       preview: ""
@@ -139,13 +159,6 @@ class DialogueShuffleFrame extends Component {
     const shuffledArray = this.shuffle(splittedWords);
     return shuffledArray.map((word, index) => (
       <>
-        <input
-          className="word-to-drop-input"
-          id={index}
-          ref="target"
-          onBlur={this.writeSometihng}
-          size={2}
-        />
         <CopyToClipboard text={word}>
           <span key={uid(word)} value={word} className="word-to-drop">
             {word}
@@ -178,19 +191,32 @@ class DialogueShuffleFrame extends Component {
               {": "}
             </NamePlate>
           </NamePlateContainer>
+
           <WordsContainer>
-            <span>{this.formatWords(element.words)}</span>
-          </WordsContainer>
-          <div>
-            <MdDoneAll
-              type="button"
-              onClick={() => {
-                this.checkLines(this.state.pushArr, lines);
-              }}
-              style={{ color: "white" }}
+            <InputContainer>
+            <input
+              className="word-to-drop-input"
+              id={i}
+              ref="target"
+              onChange={this.writeSometihng}
+              size={2}
             />
-            <MdCake onClick={this.clear} />
-          </div>
+            </InputContainer>
+            <Words>{this.formatWords(element.words)}</Words>
+          </WordsContainer>
+
+          <CheckLinesBox
+            type="button"
+            onClick={() => {
+              this.checkLines(this.state.inputAnswer, lines);
+            }}
+            style={{ color: "white" }}
+          >
+            <MdDoneAll />
+          </CheckLinesBox>
+          <ClearInputBox type="button" onClick={this.clear}>
+            <MdCake />
+          </ClearInputBox>
         </ListItem>
       ));
 
