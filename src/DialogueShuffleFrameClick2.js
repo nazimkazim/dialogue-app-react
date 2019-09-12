@@ -10,8 +10,7 @@ export default class DialogueShuffleFrame2 extends Component {
     this.state = {
       shuffledArray: [],
       inputAnswer: "",
-      score:0,
-      showTick:false
+      score:0
     };
     this.writeSomething = this.writeSomething.bind(this);
   }
@@ -35,7 +34,8 @@ export default class DialogueShuffleFrame2 extends Component {
           id: uuidv1(),
           parts: {
             speaker: obj.speaker,
-            words: shuffle(obj.words.split(" "))
+            words: shuffle(obj.words.split(" ")),
+            showTick:false
           },
           correctAnswer: obj.words
         };
@@ -61,9 +61,9 @@ export default class DialogueShuffleFrame2 extends Component {
             //console.log('correct')
             this.setState({
                 score:this.state.score + 80,
-                inputAnswer:'',
-                showTick:true
+                inputAnswer:''
             })
+            item.parts.showTick = true
         }
         return true
     })
@@ -76,9 +76,9 @@ export default class DialogueShuffleFrame2 extends Component {
       this.state.shuffledArray.map(item => (
         
         <li key={item.id}>
-          
+          {item.parts.speaker}
           <input onChange={this.writeSomething} />
-          {this.state.showTick && <MdDoneAll style={{color:'blue'}}/>}
+          {item.parts.showTick && <MdDoneAll style={{color:'blue'}}/>}
           <Button
               color="primary"
               onClick={() => {
