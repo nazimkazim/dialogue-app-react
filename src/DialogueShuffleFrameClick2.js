@@ -51,8 +51,8 @@ export default class DialogueShuffleFrame2 extends Component {
                    let shuffledArray = this.props.lines[0].parts && this.props.lines[0].parts.map(obj => {
                        return {
                            id:uuidv1(),
-                           speaker:obj.speaker,
-                           parts:shuffle(obj.words.split(' '))
+                           parts:{speaker:obj.speaker, words:shuffle(obj.words.split(' '))},
+                           correctAnswer:obj.words
                        }
                    })
 
@@ -63,14 +63,14 @@ export default class DialogueShuffleFrame2 extends Component {
 
                  render() {
                    console.log(this.state.shuffledArray);
-                   const shuffles = this.state.shuffledArray.parts && this.state.shuffledArray.parts.map(item => (
+                   const shuffles = this.state.shuffledArray && this.state.shuffledArray.map(item => (
                     <li>
                       <input onChange={this.writeSometihng}/>
-                      {item.words.map(word => (
+                      {item.parts.words.map(word => (
                         <span>{`${word} `}</span>
                       ))}
                     </li>
                   ));
-                   return <div>Dialogue 2<ul>{shuffles}</ul></div>;
+                   return <div>Dialogue 3<ul>{shuffles}</ul></div>;
                  }
                }
