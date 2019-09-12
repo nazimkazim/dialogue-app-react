@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import BubbleSpeechFrame from './BubbleSpeechFrame';
-import DialogueShuffleFrame from './DialogueShuffleFrame';
-import DialogueShuffleFrameClick from './DialogueShuffleFrameClick';
-import lines from './dialoguesData/inputData';
-import shuffleLines from './dialogueShuffleData/inputData'
-import NewDialogueForm from './NewDialogueForm';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import './App.css';
+import React, { Component } from "react";
+import BubbleSpeechFrame from "./BubbleSpeechFrame";
+import DialogueShuffleFrame from "./DialogueShuffleFrame";
+import DialogueShuffleFrameClick from "./DialogueShuffleFrameClick";
+import DialogueShuffleFrameClick2 from "./DialogueShuffleFrameClick2";
+import lines from "./dialoguesData/inputData";
+import shuffleLines from "./dialogueShuffleData/inputData";
+import NewDialogueForm from "./NewDialogueForm";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -58,18 +59,22 @@ class App extends Component {
                 exact
                 path="/shuffle-dialogue"
                 render={routeProps => (
-                  <DialogueShuffleFrame
-                    lines={shuffleLines}
-                  />
+                  <DialogueShuffleFrame lines={shuffleLines} />
                 )}
               />
               <Route
                 exact
                 path="/shuffle-dialogue-click"
                 render={routeProps => (
-                  <DialogueShuffleFrameClick
-                    lines={shuffleLines}
-                  />
+                  <DialogueShuffleFrameClick lines={shuffleLines} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/shuffle-dialogue-click2"
+                render={routeProps => (
+                  <DialogueShuffleFrameClick2 lines={shuffleLines} />
                 )}
               />
             </Switch>
