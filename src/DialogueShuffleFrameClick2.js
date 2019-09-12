@@ -1,76 +1,103 @@
-import React, { Component } from 'react'
-const uuidv1 = require('uuid/v1');
+import React, { Component } from "react";
+import { Button } from "react-bulma-components/full";
+import { MdDoneAll } from "react-icons/md";
+const uuidv1 = require("uuid/v1");
+
 
 export default class DialogueShuffleFrame2 extends Component {
-                 constructor(props) {
-                   super(props);
-                   this.state = {
-                     shuffledArray: [],
-                     inputAnswer:''
-                   };
-                   this.writeSometihng = this.writeSometihng.bind(this);
-                 }
+  constructor(props) {
+    super(props);
+    this.state = {
+      shuffledArray: [],
+      inputAnswer: "",
+      score:0,
+      showTick:false
+    };
+    this.writeSomething = this.writeSomething.bind(this);
+  }
 
+  componentDidMount() {
+    const shuffle = a => {
+      var j, x, i;
+      for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+      }
+      return a;
+    };
 
-                 writeSometihng(e) {
-                    e.preventDefault();
-                    this.setState(
-                      {
-                        inputAnswer: (e.target.value)
-                      }
-                    );
-                  }
+    let shuffledArray =
+      this.props.lines[0].parts &&
+      this.props.lines[0].parts.map(obj => {
+        return {
+          id: uuidv1(),
+          parts: {
+            speaker: obj.speaker,
+            words: shuffle(obj.words.split(" "))
+          },
+          correctAnswer: obj.words
+        };
+      });
 
-                 componentDidMount() {
-                   /* let shuffledArray = {
-                     id: "1",
-                     parts: [
-                       {
-                         speaker: "Speaker1",
-                         words: ["how", "are", "you", "Hello"]
-                       },
-                       {
-                         speaker: "Speaker2",
-                         words: ["am", "thanks", "fine", "I"]
-                       }
-                     ]
-                   }; */
+    this.setState({
+      shuffledArray
+    });
+  }
 
-                   //let shuffledArray = {}
-                   const shuffle = (a) => {
-                    var j, x, i
-                    for (i = a.length - 1; i > 0; i--) {
-                      j = Math.floor(Math.random() * (i + 1));
-                      x = a[i]
-                      a[i] = a[j]
-                      a[j] = x
-                    }
-                    return a;
-                  }
+  writeSomething(e) {
+    e.preventDefault();
+    this.setState({
+      inputAnswer: e.target.value
+    });
+  }
 
-                   let shuffledArray = this.props.lines[0].parts && this.props.lines[0].parts.map(obj => {
-                       return {
-                           id:uuidv1(),
-                           parts:{speaker:obj.speaker, words:shuffle(obj.words.split(' '))},
-                           correctAnswer:obj.words
-                       }
-                   })
+  checkLines(str, obj) {
+    obj.map(item => {
+        //console.log(item.correctAnswer)
+        if (item.correctAnswer === str.trim()) {
+            
+            //console.log('correct')
+            this.setState({
+                score:this.state.score + 80,
+                inputAnswer:'',
+                showTick:true
+            })
+        }
+        return true
+    })
+  }
 
-                   this.setState({
-                     shuffledArray
-                   });
-                 }
-
-                 render() {
-                   console.log(this.state.shuffledArray);
-                   const shuffles = this.state.shuffledArray && this.state.shuffledArray.map(item => (
-                    <li>
-                      <input onChange={this.writeSometihng}/>
-                      {item.parts.words.map(word => (
-                        <span>{`${word} `}</span>
-                      ))}
-                    </li>
-                  ));
-                   return <div>Dialogue 3<ul>{shuffles}</ul></div>;
-                 }
-               }
+  render() {
+    //console.log(this.state.shuffledArray);
+    const shuffles =
+      this.state.shuffledArray &&
+      this.state.shuffledArray.map(item => (
+        
+        <li key={item.id}>
+          
+          <input onChange={this.writeSomething} />
+          {this.state.showTick && <MdDoneAll style={{color:'blue'}}/>}
+          <Button
+              color="primary"
+              onClick={() => {
+                this.checkLines(this.state.inputAnswer, this.state.shuffledArray);
+              }}
+              size="small"
+            >
+              Check
+            </Button>
+          {item.parts.words.map((word, index) => (
+            <span key={index}>{`${word} `}</span>
+          ))}
+        </li>
+      ));
+    return (
+      <div>
+        Dialogue 3<ul>{shuffles}</ul>
+        {this.state.score}
+      </div>
+    );
+  }
+}
