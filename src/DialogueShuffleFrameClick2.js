@@ -35,7 +35,8 @@ export default class DialogueShuffleFrame2 extends Component {
           parts: {
             speaker: obj.speaker,
             words: shuffle(obj.words.split(" ")),
-            showTick:false
+            showTick:false,
+            isDisabled:false
           },
           correctAnswer: obj.words
         };
@@ -64,6 +65,7 @@ export default class DialogueShuffleFrame2 extends Component {
                 inputAnswer:''
             })
             item.parts.showTick = true
+            item.parts.isDisabled = true
         }
         return true
     })
@@ -77,10 +79,11 @@ export default class DialogueShuffleFrame2 extends Component {
         
         <li key={item.id}>
           {item.parts.speaker}
-          <input onChange={this.writeSomething} />
+          <input onChange={this.writeSomething} disabled={item.parts.isDisabled} />
           {item.parts.showTick && <MdDoneAll style={{color:'blue'}}/>}
           <Button
               color="primary"
+              disabled={item.parts.isDisabled}
               onClick={() => {
                 this.checkLines(this.state.inputAnswer, this.state.shuffledArray);
               }}
