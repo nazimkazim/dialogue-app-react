@@ -2,6 +2,10 @@ const path = require('path');
 
 export default {
     name:'Alex invites Mark to the birthday party',
+    instructions:{
+      engInstruction:'Practice the dialogue',
+      rusInstruction:'Практикуйте диалог'
+    },
     description:'The dialogue aims at improving basic conversational skills, such as greeting and daily interactions',
     languagePair:'eng-rus',
     level:'Beginner',

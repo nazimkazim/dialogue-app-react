@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Button } from "semantic-ui-react";
+
 import { uid } from "react-uid";
 //import { MdDoneAll, MdCake } from "react-icons/md";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
-import { Button } from "react-bulma-components/full";
 
 const Container = styled.div`
   display: flex;

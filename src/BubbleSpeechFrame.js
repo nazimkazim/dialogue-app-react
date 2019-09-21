@@ -3,6 +3,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import Tooltip from './Tooltip';
 import Translation from './Translation';
 import Button from './Button';
+import Instructions from './Instructions';
 
 class BubbleSpeechFrame extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class BubbleSpeechFrame extends Component {
                 <div className="sound-cont">
                   <ReactAudioPlayer
                     src={part.audio}
-                    autoPlay
                     controls
                     controlsList="nodownload"
                   />
@@ -51,7 +51,6 @@ class BubbleSpeechFrame extends Component {
                 <div className="sound-cont">
                   <ReactAudioPlayer
                     src={part.audio}
-                    autoPlay
                     controls
                     controlsList="nodownload"
                   />
@@ -79,6 +78,7 @@ class BubbleSpeechFrame extends Component {
     return (
       <div>
         <h1 className="centered" style={{color:'white'}}>{lines.name}</h1>
+        <Instructions engInstruction={lines.instructions.engInstruction} rusInstruction={lines.instructions.rusInstruction}/>
         {dialogueData}
       </div>
     );
