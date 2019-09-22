@@ -15,6 +15,18 @@ export default {
         image:'https://i.pravatar.cc/150?img=3',
         company:'Microsoft',
         position:'Engineer'
+    },
+    {   speaker:'Alex',
+        words:'What are your plans for Saturday?',
+        image:'https://i.pravatar.cc/150?img=3',
+        company:'Aple',
+        position:'Manager'
+    },
+    {   speaker:'Jane',
+        words:'To be frankly I have not decided yet',
+        image:'https://i.pravatar.cc/150?img=3',
+        company:'Microsoft',
+        position:'Engineer'
     }
     ]
 }
