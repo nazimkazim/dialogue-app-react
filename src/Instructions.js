@@ -22,7 +22,7 @@ export default class Instructions extends Component {
                          ? this.props.engInstruction
                          : this.props.rusInstruction}
                        <Segment compact>
-                         <Checkbox toggle onClick={this.toggle} />
+                         <Checkbox slider onClick={this.toggle} />
                        </Segment>
                      </div>
                    );

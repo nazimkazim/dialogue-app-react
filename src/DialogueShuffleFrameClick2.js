@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { MdDoneAll } from "react-icons/md";
-import { Grid, List, Button, Input } from "semantic-ui-react";
+import { Grid, Image, Button, Input, Card, Label, Icon, Statistic, Sticky} from "semantic-ui-react";
+import styled from "styled-components";
 const uuidv1 = require("uuid/v1");
+
+const centeredDiv = styled.div`
+  max-width: 500px;
+  width: 250px;/*NEW*/
+  height: 100px;
+  background-color: yellow;
+  border: 2px solid red;
+`;
 
 export default class DialogueShuffleFrame2 extends Component {
   constructor(props) {
@@ -33,6 +41,8 @@ export default class DialogueShuffleFrame2 extends Component {
           id: uuidv1(),
           parts: {
             speaker: obj.speaker,
+            company:obj.company,
+            position:obj.position,
             words: shuffle(obj.words.split(" ")),
             showTick: false,
             isDisabled: false
@@ -74,10 +84,40 @@ export default class DialogueShuffleFrame2 extends Component {
     const shuffles =
       this.state.shuffledArray &&
       this.state.shuffledArray.map(item => (
-        <List.Item key={item.id}>
-          <List.Content floated="right">
+        <Grid.Row key={item.id} style={{marginTop:"20px"}}>
+          <Grid.Column width={3}>
+            <Card>
+      {/*<Image src={item.parts.image ? item.parts.image : 'https://react.semantic-ui.com/images/wireframe/image.png'} wrapped ui={false} />*/}
+              <Card.Content>
+                <Card.Header>{item.parts.speaker && item.parts.speaker}</Card.Header>
+                <Card.Meta>
+                  <span className="date">{item.parts.company && item.parts.company}</span>
+                </Card.Meta>
+                <Card.Description>
+                {item.parts.position && item.parts.position}
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={6} style={{display:'flex', flexDirection: 'column', alignItems:'center'}}>
+            <Input
+              style={{width:'100%', marginTop:'20px'}}
+              onChange={this.writeSomething}
+              disabled={item.parts.isDisabled}
+              icon="keyboard outline"
+              label={{ icon: 'asterisk' }}
+              labelPosition="left corner"
+              placeholder="Unshuffle the line"
+            />
+            <centeredDiv style={{marginTop:'20px'}}>
+            {item.parts.words.map((word, index) => (
+              <Label color='yellow' key={index}>{`${word} `}</Label>
+            ))}
+            </centeredDiv>
+            <centeredDiv style={{marginTop:'20px'}}>
             <Button
-              color="primary"
+              color='twitter'
+              size='big'
               disabled={item.parts.isDisabled}
               onClick={() => {
                 this.checkLines(
@@ -85,37 +125,28 @@ export default class DialogueShuffleFrame2 extends Component {
                   this.state.shuffledArray
                 );
               }}
-              size="small"
             >
-              Check
+              {item.parts.showTick ? <Icon name='thumbs up outline'/> : 'Check'}
             </Button>
-          </List.Content>
-          <List.Content>{item.parts.speaker}</List.Content>
-          <List.Content>
-            <Input
-              onChange={this.writeSomething}
-              disabled={item.parts.isDisabled}
-            />
-          </List.Content>
-
-          {item.parts.showTick && <MdDoneAll style={{ color: "blue" }} />}
-
-          {item.parts.words.map((word, index) => (
-            <span key={index}>{`${word} `}</span>
-          ))}
-        </List.Item>
+            </centeredDiv>
+          </Grid.Column>
+        </Grid.Row>
       ));
     return (
-      <Grid textAlign="right" columns={12}>
-        <Grid.Row>
-          <Grid.Column>
-            <List divided verticalAlign="middle">
-              {shuffles}
-            </List>
+      <Grid columns={1} divided centered>
+        <Sticky float='right'>
+        <Statistic>
+          <Statistic.Value>
+            <Image
+              src="https://react.semantic-ui.com/images/avatar/small/joe.jpg"
+              className="circular inline"
+            />
             {this.state.score}
-          </Grid.Column>
-          
-        </Grid.Row>
+          </Statistic.Value>
+          <Statistic.Label>points</Statistic.Label>
+        </Statistic>
+        </Sticky>
+        {shuffles}
       </Grid>
     );
   }

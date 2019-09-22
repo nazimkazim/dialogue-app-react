@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import ReactAudioPlayer from 'react-audio-player';
-import Tooltip from './Tooltip';
-import Translation from './Translation';
-import Button from './Button';
-import Instructions from './Instructions';
+import React, { Component } from "react";
+import ReactAudioPlayer from "react-audio-player";
+import Tooltip from "./Tooltip";
+import Translation from "./Translation";
+import Button from "./Button";
+import Instructions from "./Instructions";
 
 class BubbleSpeechFrame extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class BubbleSpeechFrame extends Component {
 
   showText(e) {
     e.target.parentNode.parentNode.children[1].childNodes[0].classList.toggle(
-      'show'
+      "show"
     );
   }
   render() {
@@ -44,7 +44,9 @@ class BubbleSpeechFrame extends Component {
                   <Button showText={this.showText} />
                 </div>
                 {part.helpers && <Tooltip tips={part.helpers} />}
-                {part.translation && <Translation translation={part.translation} />}
+                {part.translation && (
+                  <Translation translation={part.translation} />
+                )}
               </div>
             ) : (
               <div className="speaker-2">
@@ -67,8 +69,10 @@ class BubbleSpeechFrame extends Component {
                 <div className="toggle-text ">
                   <Button showText={this.showText} />
                 </div>
-                {part.helpers && <Tooltip tips={part.helpers}/>}
-                {part.translation && <Translation translation={part.translation} />}
+                {part.helpers && <Tooltip tips={part.helpers} />}
+                {part.translation && (
+                  <Translation translation={part.translation} />
+                )}
               </div>
             )}
           </React.Fragment>
@@ -77,8 +81,16 @@ class BubbleSpeechFrame extends Component {
 
     return (
       <div>
-        <h1 className="centered" style={{color:'white'}}>{lines.name}</h1>
-        <Instructions engInstruction={lines.instructions.engInstruction} rusInstruction={lines.instructions.rusInstruction}/>
+        <h1 className="centered" style={{ color: "white" }}>
+          {lines.name}
+        </h1>
+        
+        {lines.instructions.engInstruction && lines.instructions.rusInstruction && (
+          <Instructions
+            engInstruction={lines.instructions.engInstruction}
+            rusInstruction={lines.instructions.rusInstruction}
+          />
+        )}
         {dialogueData}
       </div>
     );
