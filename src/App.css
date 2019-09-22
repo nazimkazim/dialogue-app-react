@@ -142,7 +142,7 @@ body {
 Style button
 */
 
-/* button {
+.custom-button {
   font-size: 1.2em;
   background: #3498db;
   color: #fff;
@@ -157,11 +157,11 @@ Style button
   box-shadow: 2px 11px 5px -10px rgba(0, 0, 0, 0.75);
 }
 
-button:hover {
+.custom-button:hover {
   color: #3498db;
 }
 
-button::after {
+.custom-button::after {
   content: '';
   background: #ecf0f1;
   position: absolute;
@@ -170,10 +170,10 @@ button::after {
   display: block;
 }
 
-button[class^='slide']::after {
+.custom-button[class^='slide']::after {
   transition: all 0.35s;
 }
-button[class^='slide']:hover::after {
+.custom-button[class^='slide']:hover::after {
   left: 0;
   right: 0;
   top: 0;
@@ -181,23 +181,23 @@ button[class^='slide']:hover::after {
   transition: all 0.35s;
 }
 
-button[class^='grow']::after {
+.custom-button[class^='grow']::after {
   transition: all 0.3s ease;
 }
-button[class^='grow']:hover::after {
+.custom-button[class^='grow']:hover::after {
   transition: all 0.3s ease-out;
 }
 
-button.grow_box::after {
+.custom-button.grow_box::after {
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   transform: scale(0, 0);
 }
-button.grow_box:hover::after {
+.custom-button.grow_box:hover::after {
   transform: scale(1, 1);
-} */
+} 
 
 /* Tooltip */
 

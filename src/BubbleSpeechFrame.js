@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactAudioPlayer from "react-audio-player";
+//import { Grid, Image, Button} from "semantic-ui-react";
 import Tooltip from "./Tooltip";
 import Translation from "./Translation";
 import Button from "./Button";
@@ -67,7 +68,7 @@ class BubbleSpeechFrame extends Component {
                   </div>
                 )}
                 <div className="toggle-text ">
-                  <Button showText={this.showText} />
+                  <Button className="custom-button" showText={this.showText} />
                 </div>
                 {part.helpers && <Tooltip tips={part.helpers} />}
                 {part.translation && (
@@ -84,8 +85,8 @@ class BubbleSpeechFrame extends Component {
         <h1 className="centered" style={{ color: "white" }}>
           {lines.name}
         </h1>
-        
-        {lines.instructions.engInstruction && lines.instructions.rusInstruction && (
+
+        {lines.instructions && lines.instructions.rusInstruction && lines.instructions.engInstruction && (
           <Instructions
             engInstruction={lines.instructions.engInstruction}
             rusInstruction={lines.instructions.rusInstruction}
