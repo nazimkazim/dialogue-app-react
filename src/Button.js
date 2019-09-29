@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Button } from "semantic-ui-react";
 
-class Button extends Component {
+class ButtonComponent extends Component {
   constructor(props) {
     super(props);
     this.handleTextShow = this.handleTextShow.bind(this);
@@ -12,12 +13,12 @@ class Button extends Component {
   render() {
     return (
       <React.Fragment>
-        <button className="grow_box" onClick={this.handleTextShow}>
+        <Button color="twitter" size="big" style={{marginBottom:this.props.margin}} onClick={this.handleTextShow}>
           show text
-        </button>
+        </Button>
       </React.Fragment>
     );
   }
 }
 
-export default Button;
+export default ButtonComponent;

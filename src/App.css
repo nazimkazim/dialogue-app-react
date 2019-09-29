@@ -142,7 +142,7 @@ body {
 Style button
 */
 
-.custom-button {
+/* .custom-button {
   font-size: 1.2em;
   background: #3498db;
   color: #fff;
@@ -197,7 +197,7 @@ Style button
 }
 .custom-button.grow_box:hover::after {
   transform: scale(1, 1);
-} 
+}  */
 
 /* Tooltip */
 
