@@ -3,8 +3,11 @@ import BubbleSpeechFrame from "./BubbleSpeechFrame";
 import DialogueShuffleFrame from "./DialogueShuffleFrame";
 import DialogueShuffleFrameClick from "./DialogueShuffleFrameClick";
 import DialogueShuffleFrameClick2 from "./DialogueShuffleFrameClick2";
+import RiddleWord from "./RiddleWord";
+import Rita from "./Rita";
 import lines from "./dialoguesData/inputData";
 import shuffleLines from "./dialogueShuffleData/inputData";
+import riddleWordsLines from './riddleData/inputData'
 import NewDialogueForm from "./NewDialogueForm";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import "./App.css";
@@ -55,6 +58,7 @@ class App extends Component {
                   />
                 )}
               />
+              <Route exact path="/rita" render={routeProps => <Rita />} />
               <Route
                 exact
                 path="/shuffle-dialogue"
@@ -75,6 +79,14 @@ class App extends Component {
                 path="/shuffle-dialogue-click2"
                 render={routeProps => (
                   <DialogueShuffleFrameClick2 lines={shuffleLines} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/riddle-word"
+                render={routeProps => (
+                  <RiddleWord lines={riddleWordsLines} />
                 )}
               />
             </Switch>
