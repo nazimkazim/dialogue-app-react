@@ -10,6 +10,8 @@ import {
   Statistic,
   Sticky
 } from "semantic-ui-react";
+import axios from "axios";
+import Instructions from "./Instructions";
 const uuidv1 = require("uuid/v1");
 
 export default class RiddleWord extends Component {
@@ -25,6 +27,17 @@ export default class RiddleWord extends Component {
   }
 
   componentDidMount() {
+    const getTranslations = word => {
+      axios
+        .get(
+          `https://api.mymemory.translated.net/get?q=${word}&langpair=en|rus`
+        )
+        .then(res => {
+          const words = res.data.matches;
+          console.log(words);
+        });
+    };
+
     const shuffle = a => {
       var j, x, i;
       for (i = a.length - 1; i > 0; i--) {
@@ -38,7 +51,7 @@ export default class RiddleWord extends Component {
 
     const isMultipleWord = str => {
       const splitWord = str.split(" ");
-      console.log(splitWord);
+      //console.log(splitWord);
       if (splitWord.length > 1) {
         return true;
       }
@@ -95,10 +108,14 @@ export default class RiddleWord extends Component {
       this.state.shuffledWord &&
       this.state.shuffledWord.map(item => (
         <div key={item.id}>
-          {item.parts.word &&  (
-            <span>{item.parts.word.map((w, index)=> (
-                <Label key={index} color='yellow'>{w}{" "}</Label>
-            ))}</span>
+          {item.parts.word && (
+            <span>
+              {item.parts.word.map((w, index) => (
+                <Label key={index} color="yellow">
+                  {w}{" "}
+                </Label>
+              ))}
+            </span>
           )}
           {"-"}
           {item.parts.definition && <span>{item.parts.definition}</span>}
@@ -121,6 +138,10 @@ export default class RiddleWord extends Component {
     //console.log(this.state.shuffledWord)
     return (
       <div>
+        <Instructions
+          engInstruction="Write a verb without to"
+          rusInstruction="Напишите глагол без to"
+        />
         {this.state.score} {shuffledWord}
       </div>
     );
