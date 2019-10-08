@@ -28,14 +28,19 @@ export default class RiddleWord extends Component {
 
   componentDidMount() {
     const getTranslations = word => {
+      const set = [];
       axios
         .get(
           `https://api.mymemory.translated.net/get?q=${word}&langpair=en|rus`
         )
         .then(res => {
-          const words = res.data.matches;
-          console.log(words);
+          return res.data.matches.length > 0
+            ? res.data.matches.map(item => {
+                set.push(item.translation);
+              })
+            : res.data.matches.translation;
         });
+      return set;
     };
 
     const shuffle = a => {
@@ -67,12 +72,20 @@ export default class RiddleWord extends Component {
               ? shuffle(obj.wordToRiddle.split(" "))
               : shuffle(obj.wordToRiddle.split("")),
             definition: obj.definition,
+            definitionWordsTtranslated: obj.definition.split(" ").map(word => {
+              return {
+                targetWord: word,
+                translatedWord: getTranslations(word)
+              };
+            }),
             showTick: false,
             isDisabled: false
           },
           correctAnswer: obj.wordToRiddle
         };
       });
+
+    console.log(shuffledWord);
 
     this.setState({
       shuffledWord

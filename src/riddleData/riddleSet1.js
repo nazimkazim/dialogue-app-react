@@ -1,14 +1,14 @@
 export default {
-    id:'1',
-    parts:[
+  id: "1",
+  parts: [
     {
-        wordToRiddle:'murder',
-        definition:'to kill someone intentionally'
+      wordToRiddle: "murder",
+      definition: "to kill someone intentionally"
     },
     {
-        wordToRiddle:'assassinate',
-        definition:'to kill someone famous or important'
-    },
+      wordToRiddle: "assassinate",
+      definition: "to kill someone famous or important"
+    } /* ,
     {
         wordToRiddle:'steal',
         definition:'to take something from another person'
@@ -56,6 +56,6 @@ export default {
     {
         wordToRiddle:'thrilled',
         definition:'be very excited'
-    }
-    ]
-}
+    } */
+  ]
+};
