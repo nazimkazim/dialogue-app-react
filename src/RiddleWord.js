@@ -4,9 +4,10 @@ import {
   Image,
   Button,
   Input,
-  Card,
+  Popup,
   Label,
   Icon,
+  List,
   Statistic,
   Sticky
 } from "semantic-ui-react";
@@ -24,23 +25,41 @@ export default class RiddleWord extends Component {
     };
     this.writeSomething = this.writeSomething.bind(this);
     this.checkLines = this.checkLines.bind(this);
+    this.formatString = this.formatString.bind(this);
   }
 
   componentDidMount() {
     const getTranslations = word => {
       const set = [];
+      const keyAPI =
+        "trnsl.1.1.20191009T070833Z.ae8dcd5c86e84378.31b471ecd7adf0d1bc0e20b4405abd6c1af7dc17";
       axios
         .get(
-          `https://api.mymemory.translated.net/get?q=${word}&langpair=en|rus`
+          `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${keyAPI}&text=${word}&lang=ru`
         )
         .then(res => {
-          return res.data.matches.length > 0
-            ? res.data.matches.map(item => {
-                set.push(item.translation);
-              })
-            : res.data.matches.translation;
+          //console.log(res.data.text);
+
+          const words =
+            res.data.text.length > 0
+              ? res.data.text.map(item => {
+                  return isRussianWord(item.toLowerCase())
+                    ? set.push(item.toLowerCase())
+                    : set.push("");
+                })
+              : res.data.text;
+          return words;
         });
       return set;
+    };
+
+    const isRussianWord = word => {
+      var rforeign = /[а-яА-ЯЁё]/;
+      if (rforeign.test(word)) {
+        return true;
+      } else {
+        return false;
+      }
     };
 
     const shuffle = a => {
@@ -92,6 +111,27 @@ export default class RiddleWord extends Component {
     });
   }
 
+  formatString(obj) {
+    return obj.map(item => (
+      <>
+        <span style={{ position: "relative" }}>
+          {item.targetWord && (
+            <Popup
+              trigger={<span name={item.targetWord}>{item.targetWord}</span>}
+              content={
+                item.translatedWord &&
+                item.translatedWord.map((w, i) => (
+                  <List.Item key={i}>{w}</List.Item>
+                ))
+              }
+              position="top left"
+            />
+          )}
+        </span>{" "}
+      </>
+    ));
+  }
+
   writeSomething(e) {
     e.preventDefault();
     this.setState({
@@ -131,7 +171,11 @@ export default class RiddleWord extends Component {
             </span>
           )}
           {"-"}
-          {item.parts.definition && <span>{item.parts.definition}</span>}
+          {item.parts.definitionWordsTtranslated && (
+            <span>
+              {this.formatString(item.parts.definitionWordsTtranslated)}
+            </span>
+          )}
           <Input
             onChange={this.writeSomething}
             disabled={item.parts.isDisabled}

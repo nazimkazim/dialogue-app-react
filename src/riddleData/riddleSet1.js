@@ -8,7 +8,14 @@ export default {
     {
       wordToRiddle: "assassinate",
       definition: "to kill someone famous or important"
-    } /* ,
+    },
+    {
+      wordToRiddle: "devaluation",
+      definition:
+        "the reduction or underestimation of the worth or importance of something"
+    }
+
+    /* ,
     {
         wordToRiddle:'steal',
         definition:'to take something from another person'
