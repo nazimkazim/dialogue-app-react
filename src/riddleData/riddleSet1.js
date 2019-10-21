@@ -13,6 +13,14 @@ export default {
       wordToRiddle: "devaluation",
       definition:
         "the reduction or underestimation of the worth or importance of something"
+    },
+    {
+      wordToRiddle: "procrastination",
+      definition: "the action of delaying or postponing something"
+    },
+    {
+      wordToRiddle: "it is not my cup of tea",
+      definition: " you do not like it or you are not interested in it"
     }
 
     /* ,

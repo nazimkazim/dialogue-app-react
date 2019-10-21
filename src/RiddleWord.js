@@ -8,8 +8,11 @@ import {
   Label,
   Icon,
   List,
+  Modal,
   Statistic,
-  Sticky
+  Sticky,
+  Segment,
+  Checkbox
 } from "semantic-ui-react";
 import axios from "axios";
 import Instructions from "./Instructions";
@@ -21,8 +24,11 @@ export default class RiddleWord extends Component {
     this.state = {
       shuffledWord: [],
       inputAnswer: "",
-      score: 0
+      score: 0,
+      turnedPrompts: false,
+      modalOpen: false
     };
+    this.toggle = this.toggle.bind(this);
     this.writeSomething = this.writeSomething.bind(this);
     this.checkLines = this.checkLines.bind(this);
     this.formatString = this.formatString.bind(this);
@@ -100,7 +106,9 @@ export default class RiddleWord extends Component {
             showTick: false,
             isDisabled: false
           },
-          correctAnswer: obj.wordToRiddle
+          correctAnswer: isMultipleWord(obj.wordToRiddle)
+            ? obj.wordToRiddle.split(" ")
+            : obj.wordToRiddle.split("")
         };
       });
 
@@ -117,12 +125,26 @@ export default class RiddleWord extends Component {
         <span style={{ position: "relative" }}>
           {item.targetWord && (
             <Popup
-              trigger={<span name={item.targetWord}>{item.targetWord}</span>}
+              trigger={
+                <span
+                  style={{
+                    borderBottom: "2px grey dashed",
+                    cursor: "pointer",
+                    marginRight: "0.5em"
+                  }}
+                  name={item.targetWord}
+                >
+                  {item.targetWord}
+                </span>
+              }
               content={
                 item.translatedWord &&
-                item.translatedWord.map((w, i) => (
-                  <List.Item key={i}>{w}</List.Item>
-                ))
+                item.translatedWord.map(
+                  (w, i) =>
+                    this.state.turnedPrompts && (
+                      <List.Item key={i}>{w}</List.Item>
+                    )
+                )
               }
               position="top left"
             />
@@ -139,10 +161,29 @@ export default class RiddleWord extends Component {
     });
   }
 
+  toggle() {
+    this.setState(prevState => ({
+      turnedPrompts: !prevState.turnedPrompts
+    }));
+  }
+
+  showLetter(e) {
+    console.log(e.target.childNodes[0].className === "hidden");
+    if (e.target.childNodes[0].className === "hidden") {
+      e.target.childNodes[0].classList.remove("hidden");
+    } else {
+      console.log("the letter is alreay shown");
+    }
+    console.log(e.target.childNodes[0].className);
+  }
+
   checkLines(str, obj) {
     obj.map(item => {
       //console.log(item.correctAnswer)
-      if (item.correctAnswer === str.trim()) {
+      if (
+        item.correctAnswer.join(" ") === str.trim() ||
+        item.correctAnswer.join("") === str.trim()
+      ) {
         console.log("correct");
         this.setState({
           score: this.state.score + 80,
@@ -170,6 +211,21 @@ export default class RiddleWord extends Component {
               ))}
             </span>
           )}
+          <br></br>
+          {item.correctAnswer && (
+            <span>
+              {item.correctAnswer.map((w, index) => (
+                <Label
+                  key={index}
+                  color="blue"
+                  style={{ minHeight: "20px" }}
+                  onClick={this.showLetter}
+                >
+                  <span className="hidden">{w} </span>
+                </Label>
+              ))}
+            </span>
+          )}
           {"-"}
           {item.parts.definitionWordsTtranslated && (
             <span>
@@ -188,7 +244,11 @@ export default class RiddleWord extends Component {
               this.checkLines(this.state.inputAnswer, this.state.shuffledWord);
             }}
           >
-            {item.parts.showTick ? <Icon name="thumbs up outline" /> : "Check"}
+            {item.parts.showTick ? (
+              <Icon color="red" name="thumbs up outline" />
+            ) : (
+              "Check"
+            )}
           </Button>
         </div>
       ));
@@ -199,6 +259,10 @@ export default class RiddleWord extends Component {
           engInstruction="Write a verb without to"
           rusInstruction="Напишите глагол без to"
         />
+        <div>
+          {!this.state.turnedPrompts ? "prompts are off" : "prompts are on"}
+        </div>
+        <Checkbox slider onClick={this.toggle} />
         {this.state.score} {shuffledWord}
       </div>
     );

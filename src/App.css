@@ -4,8 +4,11 @@ body {
   line-height: 1.618em;
 }
 
-* { margin:0; padding:0; box-sizing: border-box; }
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 #cont {
   display: flex;
@@ -36,7 +39,7 @@ body {
 }
 
 .speaker-1:after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -67,7 +70,7 @@ body {
 }
 
 .speaker-2:after {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -115,7 +118,7 @@ body {
 
 .prompt {
   color: #004d40;
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
   text-transform: uppercase;
 }
 
@@ -128,7 +131,7 @@ body {
 .text {
   display: none;
   text-align: center;
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
   font-weight: 500;
   color: #004d40;
   font-size: 16px;
@@ -136,6 +139,10 @@ body {
 
 .show {
   display: block;
+}
+
+.hidden {
+  display: none;
 }
 
 /*
@@ -235,7 +242,6 @@ Style button
   transition: all 0.35s;
 }
 
-
 .tip {
   justify-content: center;
   opacity: 0;
@@ -256,7 +262,7 @@ Style button
   transition: all 0.35s;
 }
 .tip::before {
-  content: '';
+  content: "";
   border-style: solid;
   border-width: 0.5rem 0.625rem 0.5rem 0;
   border-color: transparent #34495e transparent transparent;
@@ -287,7 +293,7 @@ Style button
   transition: all 0.35s;
 }
 .tip-translation::after {
-  content: '';
+  content: "";
   border-style: solid;
   border-width: 0.5rem 0.625rem 0.5rem 0;
   border-color: #34495e transparent transparent #34495e;
@@ -323,12 +329,12 @@ Style button
 
 .centered {
   text-align: center;
-  color:'white'
+  color: "white";
 }
 
 .line {
-  margin-top:1rem;
-  color:white;
+  margin-top: 1rem;
+  color: white;
 }
 
 .lines-container {
@@ -342,11 +348,11 @@ Style button
 }
 
 .rectangular {
-  width:80px;
-  height:30px;
-  padding:.6rem;
+  width: 80px;
+  height: 30px;
+  padding: 0.6rem;
   align-self: auto;
-  border:1px solid black;
+  border: 1px solid black;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -355,7 +361,7 @@ Style button
 }
 
 .preview {
-  width:300px;
-  height:100px;
+  width: 300px;
+  height: 100px;
   background: blue;
 }
