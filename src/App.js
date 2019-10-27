@@ -3,11 +3,13 @@ import BubbleSpeechFrame from "./BubbleSpeechFrame";
 import DialogueShuffleFrame from "./DialogueShuffleFrame";
 import DialogueShuffleFrameClick from "./DialogueShuffleFrameClick";
 import DialogueShuffleFrameClick2 from "./DialogueShuffleFrameClick2";
+import MatchImageToWord from "./MatchImageToWord";
 import RiddleWord from "./RiddleWord";
 import Rita from "./Rita";
 import lines from "./dialoguesData/inputData";
 import shuffleLines from "./dialogueShuffleData/inputData";
-import riddleWordsLines from './riddleData/inputData'
+import riddleWordsLines from "./riddleData/inputData";
+import wordImageSet from "./imageWordData/inputData";
 import NewDialogueForm from "./NewDialogueForm";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import "./App.css";
@@ -85,9 +87,13 @@ class App extends Component {
               <Route
                 exact
                 path="/riddle-word"
-                render={routeProps => (
-                  <RiddleWord lines={riddleWordsLines} />
-                )}
+                render={routeProps => <RiddleWord lines={riddleWordsLines} />}
+              />
+
+              <Route
+                exact
+                path="/match-image-to-word"
+                render={routeProps => <MatchImageToWord lines={wordImageSet} />}
               />
             </Switch>
           </BrowserRouter>

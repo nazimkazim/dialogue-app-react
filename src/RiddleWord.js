@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import {
-  Grid,
-  Image,
   Button,
   Input,
   Popup,
   Label,
   Icon,
   List,
-  Modal,
-  Statistic,
-  Sticky,
-  Segment,
   Checkbox
 } from "semantic-ui-react";
 import axios from "axios";
@@ -215,12 +209,7 @@ export default class RiddleWord extends Component {
           {item.correctAnswer && (
             <span>
               {item.correctAnswer.map((w, index) => (
-                <Label
-                  key={index}
-                  color="blue"
-                  style={{ minHeight: "20px" }}
-                  onClick={this.showLetter}
-                >
+                <Label key={index} color="blue" onClick={this.showLetter}>
                   <span className="hidden">{w} </span>
                 </Label>
               ))}
