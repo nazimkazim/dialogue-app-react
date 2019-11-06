@@ -1,7 +1,18 @@
 import React, { Component } from "react";
-import { Grid, Image, Segment, List, Input, Button } from "semantic-ui-react";
-import axios from "axios";
+import {
+  Grid,
+  Image,
+  Segment,
+  List,
+  Input,
+  Button,
+  Popup,
+  Checkbox
+} from "semantic-ui-react";
+import { getTranslations } from "./getTranslation";
 const _ = require("lodash");
+
+let answerArr = [];
 
 class MatchImageToWord extends Component {
   constructor(props) {
@@ -9,44 +20,16 @@ class MatchImageToWord extends Component {
     this.state = {
       set: [],
       shuffledWords: [],
-      inputAnswer: "",
+      inputAnswer: [],
       score: 0,
-      names: {}
+      turnedPrompts: false
     };
     this.writeAnswer = this.writeAnswer.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
   componentDidMount() {
     //console.log(this.props);
-    const getTranslations = word => {
-      let translatedWordArr = [];
-      let obj = {};
-      const keyAPI =
-        "dict.1.1.20191101T105247Z.e4967bda9fba183c.2e2703fc28b2d4f5283bb48a004dcb2327b4ba72";
-      axios
-        .get(
-          `https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${keyAPI}&lang=en-ru&text=${word}`
-        )
-        .then(res => {
-          //console.log(res);
-
-          if (res.data.def.length > 0) {
-            let translatedWord = res.data.def[0].tr;
-            let pronunciation = res.data.def[0].ts;
-
-            translatedWord.forEach(word => {
-              translatedWordArr.push(word.text);
-            });
-
-            obj.translatedWordArr = translatedWordArr;
-            obj.pronunciation = pronunciation;
-          } else {
-            console.log("no word exist");
-          }
-        });
-
-      return obj;
-    };
 
     const shuffledWords = this.props.lines.map(item => {
       return item.parts.map(i => {
@@ -66,19 +49,45 @@ class MatchImageToWord extends Component {
     });
   }
 
-  checkAnswers(arg1, arg2) {
-    console.log(arg1, arg2);
+  arraysEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (var i = arr1.length; i--; ) {
+      if (arr1[i] !== arr2[i]) return false;
+    }
+
+    return true;
   }
 
-  writeAnswer(e) {
-    e.preventDefault();
-    this.setState({ inputAnswer: e.target.value });
-    //console.log(this.state.name);
+  checkAnswers(inputAnswer, shuffledObj) {
+    let answersArray = [];
+    shuffledObj.forEach(item => {
+      answersArray.push(item.id);
+    });
+
+    if (this.arraysEqual(inputAnswer, answersArray)) {
+      console.log("huuurayy");
+    }
+    //console.log(answersArray, inputAnswer);
   }
+
+  toggle() {
+    this.setState(prevState => ({
+      turnedPrompts: !prevState.turnedPrompts
+    }));
+  }
+
+  writeAnswer(i, e) {
+    e.preventDefault();
+
+    answerArr.splice(i, 1, e.target.value);
+    console.log(answerArr);
+  }
+
   render() {
     //console.log(this.state.set.lines);
-    console.log(this.state.shuffledWords);
+    //console.log(this.state.shuffledWords);
     //console.log(this.state.names);
+
     const data =
       this.state.set.lines &&
       this.state.set.lines.map(item =>
@@ -105,10 +114,48 @@ class MatchImageToWord extends Component {
       this.state.shuffledWords.map((item, i) => (
         <List.Item key={item.word}>
           <List.Content floated="right">
-            <Input style={{ width: "40px" }} onChange={this.writeAnswer} />
+            <Input
+              style={{ width: "40px" }}
+              onChange={this.writeAnswer.bind(null, i)}
+            />
           </List.Content>
           <List.Content style={{ marginLeft: "10px" }}>
-            {item.word}
+            {item.word && (
+              <>
+                <Popup
+                  trigger={
+                    <span
+                      style={{
+                        borderBottom: "2px grey dashed",
+                        cursor: "pointer",
+                        marginRight: "0.5em"
+                      }}
+                      name={item.word}
+                    >
+                      {item.word}
+                    </span>
+                  }
+                  content={
+                    item.translation.translatedWordArr &&
+                    item.translation.translatedWordArr.map(
+                      (w, i) =>
+                        this.state.turnedPrompts && (
+                          <List.Item key={i}>
+                            {item.translation.translatedWordArr.indexOf(w) ===
+                            0 ? (
+                              <strong>{w}</strong>
+                            ) : (
+                              w
+                            )}
+                          </List.Item>
+                        )
+                    )
+                  }
+                  position="top left"
+                />
+              </>
+            )}
+            {item.translation.transcription}
           </List.Content>
         </List.Item>
       ));
@@ -116,16 +163,15 @@ class MatchImageToWord extends Component {
     return (
       <Grid>
         <Grid.Column width={4}>
+          {!this.state.turnedPrompts ? "prompts are off" : "prompts are on"}
+          <Checkbox slider onClick={this.toggle} />
           <List divided>{words}</List>
           <div>
             <Button
               color="twitter"
               size="big"
               onClick={() => {
-                this.checkAnswers(
-                  this.state.inputAnswer,
-                  this.state.shuffledWords
-                );
+                this.checkAnswers(answerArr, this.state.shuffledWords);
               }}
             >
               Check
