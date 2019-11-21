@@ -22,7 +22,8 @@ class MatchImageToWord extends Component {
       shuffledWords: [],
       inputAnswer: [],
       score: 0,
-      turnedPrompts: false
+      turnedPrompts: false,
+      isCorrect: false
     };
     this.writeAnswer = this.writeAnswer.bind(this);
     this.toggle = this.toggle.bind(this);
@@ -65,7 +66,9 @@ class MatchImageToWord extends Component {
     });
 
     if (this.arraysEqual(inputAnswer, answersArray)) {
-      console.log("huuurayy");
+      this.setState({
+        isCorrect: true
+      });
     }
     //console.log(answersArray, inputAnswer);
   }
@@ -78,9 +81,8 @@ class MatchImageToWord extends Component {
 
   writeAnswer(i, e) {
     e.preventDefault();
-
     answerArr.splice(i, 1, e.target.value);
-    console.log(answerArr);
+    //console.log(answerArr);
   }
 
   render() {
@@ -161,7 +163,7 @@ class MatchImageToWord extends Component {
       ));
     //console.log(data);
     return (
-      <Grid>
+      <Grid padded>
         <Grid.Column width={4}>
           {!this.state.turnedPrompts ? "prompts are off" : "prompts are on"}
           <Checkbox slider onClick={this.toggle} />
@@ -176,10 +178,11 @@ class MatchImageToWord extends Component {
             >
               Check
             </Button>
+            {this.state.isCorrect && <span>Perfect</span>}
           </div>
         </Grid.Column>
         <Grid.Column width={12}>
-          <Grid>
+          <Grid padded>
             <Grid.Row relaxed="true" columns={4}>
               {data}
             </Grid.Row>

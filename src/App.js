@@ -6,6 +6,7 @@ import DialogueShuffleFrameClick2 from "./DialogueShuffleFrameClick2";
 import MatchImageToWord from "./MatchImageToWord";
 import RiddleWord from "./RiddleWord";
 import Rita from "./Rita";
+import Snake from "./Snake/Snake";
 import lines from "./dialoguesData/inputData";
 import shuffleLines from "./dialogueShuffleData/inputData";
 import riddleWordsLines from "./riddleData/inputData";
@@ -95,6 +96,8 @@ class App extends Component {
                 path="/match-image-to-word"
                 render={routeProps => <MatchImageToWord lines={wordImageSet} />}
               />
+
+              <Route exact path="/snake" render={routeProps => <Snake />} />
             </Switch>
           </BrowserRouter>
         </div>
