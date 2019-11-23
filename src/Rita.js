@@ -6,7 +6,7 @@ var nlp = require("compromise");
 var str = nlp("I have been trying to conceal, because it is expensive");
 var result = str.verbs();
 
-console.log(result.terms());
+//console.log(result.terms());
 
 //console.log(result.original.list[0].terms);
 result.original.list[0].terms.forEach(item => {

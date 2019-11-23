@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// Components
 import BubbleSpeechFrame from "./BubbleSpeechFrame";
 import DialogueShuffleFrame from "./DialogueShuffleFrame";
 import DialogueShuffleFrameClick from "./DialogueShuffleFrameClick";
@@ -7,11 +9,15 @@ import MatchImageToWord from "./MatchImageToWord";
 import RiddleWord from "./RiddleWord";
 import Rita from "./Rita";
 import Snake from "./Snake/Snake";
+import NewDialogueForm from "./NewDialogueForm";
+
+// Lines data
 import lines from "./dialoguesData/inputData";
 import shuffleLines from "./dialogueShuffleData/inputData";
 import riddleWordsLines from "./riddleData/inputData";
 import wordImageSet from "./imageWordData/inputData";
-import NewDialogueForm from "./NewDialogueForm";
+import snakeLines from "./Snake/snake_data/input_data";
+
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import "./App.css";
 
@@ -97,7 +103,11 @@ class App extends Component {
                 render={routeProps => <MatchImageToWord lines={wordImageSet} />}
               />
 
-              <Route exact path="/snake" render={routeProps => <Snake />} />
+              <Route
+                exact
+                path="/snake"
+                render={routeProps => <Snake lines={snakeLines} />}
+              />
             </Switch>
           </BrowserRouter>
         </div>

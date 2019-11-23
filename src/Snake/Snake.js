@@ -1,22 +1,24 @@
 import React, { Component } from "react";
+//import { getImage } from "./Image";
 
 class Snake extends Component {
   constructor(props) {
     super(props);
     this.state = {
       width: 608,
-      height: 608
+      height: 608,
+      words: []
     };
     this.colorPickerRef = React.createRef();
   }
   componentDidMount() {
     this.context = this.colorPickerRef.current.getContext("2d");
-    this.newGame(this.context, "bi");
+
+    this.newGame(this.context);
   }
 
-  newGame(ctx, wordInput) {
+  newGame(ctx) {
     const box = 32;
-
     const ground = new Image();
     ground.src = require("./img/ground.png");
     const sword = new Image();
@@ -41,6 +43,15 @@ class Snake extends Component {
     left.src = require("./audio/left.mp3");
     down.src = require("./audio/down.mp3");
 
+    const words = this.props.lines.map(word => {
+      let arr = word.parts.map(w => {
+        return w.word;
+      });
+
+      return arr;
+    });
+
+    let wordInput = words[0][0];
     let snake = [];
     let word = wordInput.split("");
     let wordReduce = wordInput;
@@ -121,7 +132,7 @@ class Snake extends Component {
       //ctx.drawImage(sword, food.x, food.y);
 
       ctx.font = "20pt sans-serif";
-      ctx.fillText(word[0], food.x + box / 2, food.y + box/2);
+      ctx.fillText(word[0], food.x + box / 2, food.y + box / 2);
 
       oldPositions.forEach(pos => {
         ctx.drawImage(sword, pos.x, pos.y);
@@ -181,7 +192,7 @@ class Snake extends Component {
         ctx.fillStyle = "white";
         ctx.font = "45px Changa one";
         ctx.fillText("Victory", 10 * box, 1.6 * box);
-        clearInterval(game);
+        //clearInterval(game);
         levelWin.play();
       }
 
@@ -198,6 +209,7 @@ class Snake extends Component {
     let game = setInterval(draw, 200);
   }
   render() {
+    console.table(this.state.words);
     return (
       <div>
         <canvas
