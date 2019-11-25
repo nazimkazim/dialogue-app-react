@@ -47,15 +47,21 @@ class Snake extends Component {
       let arr = word.parts.map(w => {
         return w.word;
       });
-
       return arr;
     });
 
-    let wordInput = words[0][0];
+    // Array of all words
+    let wordsArr = words[0];
+
+    // First word in array splitted
+    let word = wordsArr[0].split("");
     let snake = [];
-    let word = wordInput.split("");
-    let wordReduce = wordInput;
-    let wordSecret = "";
+
+    // Word that is reduced
+    let wordReduce = word;
+
+    //let wordSecret = "";
+
     let oldPositions = [];
 
     snake[0] = {
@@ -73,6 +79,7 @@ class Snake extends Component {
     // create the score var
 
     let score = 0;
+    let inc = 0;
 
     //control the snake
 
@@ -150,11 +157,33 @@ class Snake extends Component {
 
       // if the snake eats the food
       if (snakeX === food.x && snakeY === food.y) {
-        score++;
-        wordSecret += wordReduce[score - 1];
+        inc++;
+        //wordSecret += wordReduce[score - 1];
         bonus.play();
         oldPositions.unshift({ x: food.x, y: food.y });
         word.shift();
+        console.log(word);
+
+        // While wordsArr > 0
+        // If wordsArr === 0 victory
+
+        // if word.length === 0
+        // remove one item from wordsArr
+        if (word.length === 0) {
+          //let splicedWord = wordsArr.splice(0, 1);
+          //word = splicedWord.split("");
+          //word = "read".split("");
+          score += inc;
+
+          // Good one
+          word = wordsArr.pop().split("");
+          //wordSecret = "";
+
+          console.log(word);
+          wordReduce = word;
+          inc = 0;
+          console.log(wordReduce);
+        }
 
         food = {
           x: Math.floor(Math.random() * 17 + 1) * box,
@@ -188,11 +217,12 @@ class Snake extends Component {
         dead.play();
       }
 
-      if (wordReduce.length === score) {
+      if (wordsArr.length === 0) {
         ctx.fillStyle = "white";
         ctx.font = "45px Changa one";
         ctx.fillText("Victory", 10 * box, 1.6 * box);
-        //clearInterval(game);
+        word = "";
+        clearInterval(game);
         levelWin.play();
       }
 
@@ -200,7 +230,9 @@ class Snake extends Component {
 
       ctx.fillStyle = "white";
       ctx.font = "45px Changa one";
-      ctx.fillText(wordSecret, 2 * box, 1.6 * box);
+      if (word.length > 0) {
+        ctx.fillText(word.join(""), 2 * box, 1.6 * box);
+      }
       ctx.fillText(score, 15 * box, 1.6 * box);
     }
 
