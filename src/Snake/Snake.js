@@ -10,19 +10,13 @@ class Snake extends Component {
       words: []
     };
     this.colorPickerRef = React.createRef();
-    //this.addword = this.addword.bind(this);
+    //this.addWord = this.addWord.bind(this);
   }
   componentDidMount() {
     this.context = this.colorPickerRef.current.getContext("2d");
 
     this.newGame(this.context);
   }
-
-  /* addWord(word) {
-    this.setState({
-      words: this.state.words.push(word)
-    });
-  } */
 
   newGame(ctx) {
     const box = 32;
@@ -129,6 +123,12 @@ class Snake extends Component {
       return false;
     }
 
+    const addWord = word => {
+      this.setState({
+        words: this.state.words.concat(word)
+      });
+    };
+
     // draw everything to the canvas
 
     function draw() {
@@ -183,13 +183,14 @@ class Snake extends Component {
           score += inc;
 
           // Removes  a word from arr and splits in characters
-          word = wordsArr.pop().split("");
+          word = wordsArr[0].split("");
 
-          //addWord(word);
+          let wordRemoved = wordsArr.splice(0, 1);
+
+          addWord(wordRemoved);
 
           oldPositions.length = 0;
 
-          //this.addword(word);
           inc = 0;
 
           ctx.fillStyle = "red";
@@ -262,6 +263,7 @@ class Snake extends Component {
   }
   render() {
     console.table(this.state.words);
+    const listWords = this.state.words.map(w => <li>{w}</li>);
     return (
       <div>
         <canvas
@@ -269,7 +271,7 @@ class Snake extends Component {
           width={this.state.width}
           ref={this.colorPickerRef}
         ></canvas>
-        {/* <div>{this.addword()}</div> */}
+        <ul>{this.state.words && listWords}</ul>
       </div>
     );
   }
