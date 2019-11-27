@@ -10,12 +10,19 @@ class Snake extends Component {
       words: []
     };
     this.colorPickerRef = React.createRef();
+    //this.addword = this.addword.bind(this);
   }
   componentDidMount() {
     this.context = this.colorPickerRef.current.getContext("2d");
 
     this.newGame(this.context);
   }
+
+  /* addWord(word) {
+    this.setState({
+      words: this.state.words.push(word)
+    });
+  } */
 
   newGame(ctx) {
     const box = 32;
@@ -58,7 +65,7 @@ class Snake extends Component {
     let snake = [];
 
     // Word that is reduced
-    let wordReduce = word;
+    //let wordReduce = word;
 
     //let wordSecret = "";
 
@@ -175,14 +182,23 @@ class Snake extends Component {
           //word = "read".split("");
           score += inc;
 
-          // Good one
+          // Removes  a word from arr and splits in characters
           word = wordsArr.pop().split("");
-          //wordSecret = "";
+
+          //addWord(word);
+
+          oldPositions.length = 0;
+
+          //this.addword(word);
+          inc = 0;
+
+          ctx.fillStyle = "red";
+          ctx.font = "30px Arial";
+          ctx.fillText(inc, 18 * box, 1.6 * box);
 
           console.log(word);
-          wordReduce = word;
-          inc = 0;
-          console.log(wordReduce);
+          //wordReduce = word;
+          //console.log(wordReduce);
         }
 
         food = {
@@ -234,6 +250,10 @@ class Snake extends Component {
         ctx.fillText(word.join(""), 2 * box, 1.6 * box);
       }
       ctx.fillText(score, 15 * box, 1.6 * box);
+
+      ctx.fillStyle = "red";
+      ctx.font = "30px Arial";
+      ctx.fillText(inc, 18 * box, 1.6 * box);
     }
 
     // call draw function every 100 ms
@@ -249,6 +269,7 @@ class Snake extends Component {
           width={this.state.width}
           ref={this.colorPickerRef}
         ></canvas>
+        {/* <div>{this.addword()}</div> */}
       </div>
     );
   }
