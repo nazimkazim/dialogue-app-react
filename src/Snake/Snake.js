@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Grid } from "semantic-ui-react";
 //import { getImage } from "./Image";
 
 class Snake extends Component {
@@ -14,7 +15,6 @@ class Snake extends Component {
   }
   componentDidMount() {
     this.context = this.colorPickerRef.current.getContext("2d");
-
     this.newGame(this.context);
   }
 
@@ -183,11 +183,21 @@ class Snake extends Component {
           score += inc;
 
           // Removes  a word from arr and splits in characters
-          word = wordsArr[0].split("");
-
           let wordRemoved = wordsArr.splice(0, 1);
-
           addWord(wordRemoved);
+
+          if (wordsArr.length > 0) {
+            word = wordsArr[0].split("");
+          } else {
+            ctx.fillStyle = "white";
+            ctx.font = "45px Changa one";
+            ctx.fillText("Victory", 10 * box, 1.6 * box);
+            word = "";
+            clearInterval(game);
+            levelWin.play();
+          }
+
+          console.log(word);
 
           oldPositions.length = 0;
 
@@ -197,7 +207,6 @@ class Snake extends Component {
           ctx.font = "30px Arial";
           ctx.fillText(inc, 18 * box, 1.6 * box);
 
-          console.log(word);
           //wordReduce = word;
           //console.log(wordReduce);
         }
@@ -234,15 +243,6 @@ class Snake extends Component {
         dead.play();
       }
 
-      if (wordsArr.length === 0) {
-        ctx.fillStyle = "white";
-        ctx.font = "45px Changa one";
-        ctx.fillText("Victory", 10 * box, 1.6 * box);
-        word = "";
-        clearInterval(game);
-        levelWin.play();
-      }
-
       snake.unshift(newHead);
 
       ctx.fillStyle = "white";
@@ -263,16 +263,22 @@ class Snake extends Component {
   }
   render() {
     console.table(this.state.words);
-    const listWords = this.state.words.map(w => <li>{w}</li>);
+    const listWords = this.state.words.map((w, i) => <li key={i}>{w}</li>);
     return (
-      <div>
-        <canvas
-          height={this.state.height}
-          width={this.state.width}
-          ref={this.colorPickerRef}
-        ></canvas>
-        <ul>{this.state.words && listWords}</ul>
-      </div>
+      <Grid>
+        <Grid.Column width={12}>
+          <canvas
+            height={this.state.height}
+            width={this.state.width}
+            ref={this.colorPickerRef}
+          ></canvas>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <div>
+            <ul>{this.state.words && listWords}</ul>
+          </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
