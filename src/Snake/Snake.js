@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, List, Button, Modal } from "semantic-ui-react";
+import MatchImageToWord from "../MatchImageToWord";
 //import { getImage } from "./Image";
 
 class Snake extends Component {
@@ -8,7 +9,8 @@ class Snake extends Component {
     this.state = {
       width: 608,
       height: 608,
-      words: []
+      words: [],
+      open: false
     };
     this.colorPickerRef = React.createRef();
     //this.addWord = this.addWord.bind(this);
@@ -23,7 +25,7 @@ class Snake extends Component {
     const ground = new Image();
     ground.src = require("./img/ground.png");
     const sword = new Image();
-    sword.src = require("./img/sword.png");
+    sword.src = require("./img/bomb.png");
 
     let dead = new Audio();
     let eat = new Audio();
@@ -34,6 +36,7 @@ class Snake extends Component {
     let down = new Audio();
     let bonus = new Audio();
     let levelWin = new Audio();
+    let jacket_zipper = new Audio();
 
     dead.src = require("./audio/dead.mp3");
     eat.src = require("./audio/eat.mp3");
@@ -43,6 +46,7 @@ class Snake extends Component {
     levelWin.src = require("./audio/level-win.wav");
     left.src = require("./audio/left.mp3");
     down.src = require("./audio/down.mp3");
+    jacket_zipper.src = require("./audio/jacket_zipper.wav");
 
     const words = this.props.lines.map(word => {
       let arr = word.parts.map(w => {
@@ -129,6 +133,12 @@ class Snake extends Component {
       });
     };
 
+    const openButton = arg => {
+      this.setState({
+        open: arg
+      });
+    };
+
     // draw everything to the canvas
 
     function draw() {
@@ -193,13 +203,16 @@ class Snake extends Component {
             ctx.font = "45px Changa one";
             ctx.fillText("Victory", 10 * box, 1.6 * box);
             word = "";
+            openButton(true);
             clearInterval(game);
+
             levelWin.play();
           }
 
           console.log(word);
 
           oldPositions.length = 0;
+          jacket_zipper.play();
 
           inc = 0;
 
@@ -263,20 +276,32 @@ class Snake extends Component {
   }
   render() {
     console.table(this.state.words);
-    const listWords = this.state.words.map((w, i) => <li key={i}>{w}</li>);
+    const listWords = this.state.words.map((w, i) => (
+      <List.Item key={i} style={{ textDecoration: "line-through" }}>
+        <List.Content>
+          <List.Header>{w}</List.Header>
+        </List.Content>
+      </List.Item>
+    ));
     return (
       <Grid>
-        <Grid.Column width={12}>
+        <Grid.Column width={15}>
           <canvas
             height={this.state.height}
             width={this.state.width}
             ref={this.colorPickerRef}
           ></canvas>
         </Grid.Column>
-        <Grid.Column width={4}>
-          <div>
-            <ul>{this.state.words && listWords}</ul>
-          </div>
+        <Grid.Column width={1} style={{ width: "200px" }}>
+          <List>{this.state.words && listWords}</List>
+          {this.state.open && (
+            <Modal trigger={<Button>Show Modal</Button>} centered={false}>
+              <Modal.Header>Select a Photo</Modal.Header>
+              <Modal.Content>
+                <MatchImageToWord lines={this.props.lines} />
+              </Modal.Content>
+            </Modal>
+          )}
         </Grid.Column>
       </Grid>
     );
