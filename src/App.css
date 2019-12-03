@@ -16,11 +16,10 @@ body {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #77aa77;
+  /*   background-color: #77aa77;*/
   background-attachment: fixed;
   background-size: cover;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   overflow-y: hidden;
 }

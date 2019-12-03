@@ -5,13 +5,13 @@ export default {
       image:
         "https://res.cloudinary.com/nzmai/image/upload/v1574491440/snake%20activity%20data/set%201/beautiful_princess.jpg",
       id: "1",
-      word: "beautiful princess"
+      word: "vlad"
     },
     {
       image:
         "https://res.cloudinary.com/nzmai/image/upload/v1574491440/snake%20activity%20data/set%201/angry.jpg",
       id: "2",
-      word: "angry man"
+      word: "milana"
     },
     {
       image:

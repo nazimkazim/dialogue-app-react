@@ -86,12 +86,14 @@ class BubbleSpeechFrame extends Component {
           {lines.name}
         </h1>
 
-        {lines.instructions && lines.instructions.rusInstruction && lines.instructions.engInstruction && (
-          <Instructions
-            engInstruction={lines.instructions.engInstruction}
-            rusInstruction={lines.instructions.rusInstruction}
-          />
-        )}
+        {lines.instructions &&
+          lines.instructions.rusInstruction &&
+          lines.instructions.engInstruction && (
+            <Instructions
+              engInstruction={lines.instructions.engInstruction}
+              rusInstruction={lines.instructions.rusInstruction}
+            />
+          )}
         {dialogueData}
       </div>
     );

@@ -10,6 +10,7 @@ import RiddleWord from "./RiddleWord";
 import Rita from "./Rita";
 import Snake from "./Snake/Snake";
 import NewDialogueForm from "./NewDialogueForm";
+import Lesson from "./lessons/Lesson";
 
 // Lines data
 import lines from "./dialoguesData/inputData";
@@ -108,6 +109,7 @@ class App extends Component {
                 path="/snake"
                 render={routeProps => <Snake lines={snakeLines} />}
               />
+              <Route exact path="/lesson" render={routeProps => <Lesson />} />
             </Switch>
           </BrowserRouter>
         </div>
