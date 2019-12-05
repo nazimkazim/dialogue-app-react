@@ -4,12 +4,16 @@ import Banner from "./components/Banner";
 import AimsComponent from "./components/AimsComponent";
 import BubbleSpeech from "./components/BubbleSpeech";
 import TickWords from "./components/TickWords";
-import { Grid } from "semantic-ui-react";
+import { Grid, Modal, Button } from "semantic-ui-react";
+import Instruction from "../Instructions";
+import ReactHtmlParser from "react-html-parser";
 
 import data from "./lessonsData/lesson1";
+import MatchImageToWord from "../MatchImageToWord";
 
 const margins = {
-  small: "10px"
+  small: "10px",
+  medium: "20px"
 };
 
 const color = {
@@ -38,42 +42,129 @@ class LessonPage extends Component {
 
   componentDidMount() {}
   render() {
+    console.log(data.matchProfessions);
     return (
       <>
         <Banner number="06" name="JOBS & WORK" color={color.blue} />
         <SpeakingSection>
           <Grid>
-            <Grid.Column width={6}>
-              <AimsComponent aims={data.inThisLesson} />
-              <BubbleSpeech
-                left="30px"
-                width="240px"
-                height="125px"
-                borderColor="pink"
-                borderRadius="43px"
-                position="relative"
-                content="What does ______ mean?"
-              />
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <HeaderH2>Speak for yourself</HeaderH2>
-              <p style={{ marginTop: margins.small }}>
-                <BoldedNumber>1</BoldedNumber>
-                Tick (&#10004;) the things you think are important in job.
-              </p>
-              <TickWords list={data.importantThingsList} />
+            <Grid.Row>
+              <Grid.Column width={6}>
+                <AimsComponent aims={data.inThisLesson} />
+                <BubbleSpeech
+                  left="30px"
+                  width="240px"
+                  height="125px"
+                  borderColor="pink"
+                  borderRadius="43px"
+                  position="relative"
+                  content="What does ______ mean?"
+                />
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <HeaderH2>Speak for yourself</HeaderH2>
+                <div style={{ marginTop: margins.small }}>
+                  <BoldedNumber>1</BoldedNumber>
+                  <Instruction
+                    engInstruction="Tick (&#10004;) the things you think are important in job."
+                    rusInstruction="Отметьте (&#10004;) вещи которые по вашему мнению важны для работы"
+                  />
+                </div>
+                <TickWords list={data.importantThingsList} />
 
-              <p style={{ marginTop: margins.small }}>
-                <BoldedNumber>2</BoldedNumber>
-                <strong>In pairs.</strong> Tell your partner what you think is
-                important and what you like.
-              </p>
+                <div style={{ marginTop: margins.small }}>
+                  <BoldedNumber>2</BoldedNumber>
+                  <Instruction
+                    engInstruction={ReactHtmlParser(
+                      "<strong>I pairs</strong>. Tell your partner what you think is important"
+                    )}
+                    rusInstruction={ReactHtmlParser(
+                      "<strong>В паре</strong>. Скажите партнеру что для вас важно и что вы любите или не  любите"
+                    )}
+                    bolded="true"
+                  />
+                </div>
 
-              <p>
-                <em>Example:</em> I think a good salary is important, and I like
-                work in a team
-              </p>
-            </Grid.Column>
+                <p>
+                  <em>Example:</em> I think a good salary is important, and I
+                  like work in a team
+                </p>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={6}></Grid.Column>
+              <Grid.Column width={10}>
+                <HeaderH2 style={{ marginTop: margins.medium }}>
+                  Vocabulary
+                </HeaderH2>
+                <h2>Occupations</h2>
+                <div style={{ marginTop: margins.small }}>
+                  <BoldedNumber>1</BoldedNumber>
+                  <Instruction
+                    engInstruction="Can you answer this question in two ways?"
+                    rusInstruction="Можете ответить на этот вопрос двумя способами?"
+                  />
+                </div>
+                <Grid verticalAlign="middle" columns={3}>
+                  <Grid.Column>
+                    <BubbleSpeech
+                      left="3px"
+                      width="240px"
+                      height="125px"
+                      borderColor="pink"
+                      background="#CDDC39"
+                      borderRadius="43px"
+                      position="relative"
+                      content="What do you do?"
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <BubbleSpeech
+                      left="3px"
+                      width="240px"
+                      height="125px"
+                      borderColor="pink"
+                      borderRadius="43px"
+                      background="#F8BBD0"
+                      position="relative"
+                      content={[
+                        "I'm a student",
+                        "I go to the university of Prague"
+                      ]}
+                    />
+                    <br />
+                    <BubbleSpeech
+                      left="3px"
+                      width="240px"
+                      height="125px"
+                      borderColor="pink"
+                      borderRadius="43px"
+                      background="#00BCD4"
+                      position="relative"
+                      content={["I'm a bank clerk", "I work for a German bank"]}
+                    />
+                  </Grid.Column>
+                </Grid>
+                <div style={{ marginTop: margins.small }}>
+                  <BoldedNumber>2</BoldedNumber>
+                  <Instruction
+                    engInstruction={ReactHtmlParser(
+                      "<strong>Against the clock</strong>. <em>2 minutes</em> Match these jobs to the pictures"
+                    )}
+                    rusInstruction={ReactHtmlParser(
+                      "<strong>На время</strong>. <em>2 минуты</em> Соотнесите эти профессии с рисунками"
+                    )}
+                    bolded="true"
+                  />
+                </div>
+                <Modal trigger={<Button>Start exercise</Button>}>
+                  <Modal.Header>Match photos to words</Modal.Header>
+                  <Modal.Content>
+                    <MatchImageToWord lines={data.matchProfessions} />
+                  </Modal.Content>
+                </Modal>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </SpeakingSection>
       </>

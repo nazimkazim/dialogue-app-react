@@ -32,16 +32,18 @@ class MatchImageToWord extends Component {
   componentDidMount() {
     //console.log(this.props);
 
-    const shuffledWords = this.props.lines.map(item => {
-      return item.parts.map(i => {
-        return {
-          word: i.word,
-          id: i.id,
-          isCorrect: false,
-          translation: getTranslations(i.word)
-        };
+    const shuffledWords =
+      this.props.lines &&
+      this.props.lines.map(item => {
+        return item.parts.map(i => {
+          return {
+            word: i.word,
+            id: i.id,
+            isCorrect: false,
+            translation: getTranslations(i.word)
+          };
+        });
       });
-    });
 
     //console.log(shuffledWords);
     this.setState({

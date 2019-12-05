@@ -17,12 +17,17 @@ export default class Instructions extends Component {
   }
   render() {
     return (
-      <div>
-        {this.state.toggleInstruction
-          ? this.props.engInstruction
-          : this.props.rusInstruction}
-        <Checkbox slider onClick={this.toggle} />
-      </div>
+      <>
+        <span>
+          {this.state.toggleInstruction
+            ? this.props.engInstruction
+            : this.props.rusInstruction}
+        </span>
+
+        <span style={{ display: "block" }}>
+          <Checkbox slider onClick={this.toggle} />
+        </span>
+      </>
     );
   }
 }

@@ -11,16 +11,34 @@ export default function BubbleSpeech(props) {
         border: `2px solid ${props.borderColor || "black"}`,
         padding: "1px",
         background: props.background || "",
-        webkitBorderRadius: props.borderRadius,
-        mozBorderRadius: props.borderRadius,
+        WebkitBorderRadius: props.borderRadius,
+        MozBorderRadius: props.borderRadius,
         borderRadius: props.borderRadius,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        textAlign: "center"
+        textAlign: "center",
+        "&:after": {
+          content: "",
+          position: "absolute",
+          borderStyle: "solid",
+          borderWidth: "20px 0 20px 20px",
+          borderColor: "transparent #CF5858",
+          display: "block",
+          width: "0",
+          zIndex: "1",
+          right: "-20px",
+          top: "43px"
+        }
       }}
     >
-      {props.content}
+      {typeof props.content === "object"
+        ? props.content.map((item, i) => (
+            <li key={i} style={{ listStyleType: "none" }}>
+              <strong>{i + 1}.</strong> {item}
+            </li>
+          ))
+        : props.content}
     </div>
   );
 }
