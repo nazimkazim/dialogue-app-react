@@ -186,6 +186,26 @@ class LessonPage extends Component {
                     <MatchImageToWord lines={data.matchProfessions} />
                   </Modal.Content>
                 </Modal>
+                <div style={{ marginTop: margins.medium }}>
+                  <BoldedNumber>3</BoldedNumber>
+                  <Instruction
+                    engInstruction="Now match six of the jobs with these sentences."
+                    rusInstruction="Теперь соотнесите 6 профессий с этими предложениями."
+                  />
+                </div>
+                <Modal trigger={<Button>Start exercise</Button>}>
+                  <Modal.Header>Match photos to words</Modal.Header>
+                  <Modal.Content>
+                    <MatchImageToWord lines={data.sentencesToJobs} />
+                  </Modal.Content>
+                </Modal>
+                <div style={{ marginTop: margins.medium }}>
+                  <BoldedNumber>4</BoldedNumber>
+                  <Instruction
+                    engInstruction="Write your own sentences for the other four jobs."
+                    rusInstruction="Напишите свои собственные предложения для других четырех профессий."
+                  />
+                </div>
               </Grid.Column>
             </Grid.Row>
           </Grid>

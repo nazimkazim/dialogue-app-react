@@ -208,7 +208,7 @@ class MatchImageToWord extends Component {
         </Grid.Column>
         <Grid.Column width={12}>
           <Grid padded>
-            <Grid.Row relaxed="true" columns={4}>
+            <Grid.Row relaxed="true" columns={3}>
               {data}
             </Grid.Row>
           </Grid>
