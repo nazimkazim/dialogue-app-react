@@ -8,19 +8,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   border-right: 2px solid green;
-`;
-
-const Plate = styled.span`
-  width: 100%;
-  height: 30px;
-  display: block;
-  display: flex;
-  padding-left: 10px;
-  align-items: center;
-  background: green;
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
+  border-top: 2px solid green;
 `;
 
 const List = styled.ul`
@@ -30,14 +18,19 @@ const List = styled.ul`
   font-weight: 400;
 `;
 
-export default function AimsComponent(props) {
+export default function SideNote(props) {
   //console.log(props.aims);
-  const items =
-    props.aims && props.aims.map((aim, i) => <li key={i}>{aim}</li>);
+  const notes =
+    typeof props.notes === "object"
+      ? props.notes.map((note, i) => (
+          <li key={i} style={{ listStyleType: "none" }}>
+            {note}
+          </li>
+        ))
+      : props.notes;
   return (
     <Container>
-      <Plate>In this lesson</Plate>
-      <List>{items}</List>
+      <List>{notes}</List>
     </Container>
   );
 }

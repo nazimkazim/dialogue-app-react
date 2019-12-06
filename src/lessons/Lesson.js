@@ -7,20 +7,22 @@ import TickWords from "./components/TickWords";
 import { Grid, Modal, Button } from "semantic-ui-react";
 import Instruction from "../Instructions";
 import ReactHtmlParser from "react-html-parser";
+import SideNotes from "./components/SideNotes";
 
 import data from "./lessonsData/lesson1";
 import MatchImageToWord from "../MatchImageToWord";
 
 const margins = {
   small: "10px",
-  medium: "20px"
+  medium: "20px",
+  large: "80px"
 };
 
 const color = {
   blue: "linear-gradient(90deg, #4b6cb7 0%, #182848 100%)"
 };
 
-const SpeakingSection = styled.div`
+const Section = styled.div`
   min-height: 500px;
   width: 100%;
 `;
@@ -46,7 +48,7 @@ class LessonPage extends Component {
     return (
       <>
         <Banner number="06" name="JOBS & WORK" color={color.blue} />
-        <SpeakingSection>
+        <Section>
           <Grid>
             <Grid.Row>
               <Grid.Column width={6}>
@@ -91,8 +93,29 @@ class LessonPage extends Component {
                 </p>
               </Grid.Column>
             </Grid.Row>
+          </Grid>
+        </Section>
+        <Section>
+          <Grid>
             <Grid.Row>
-              <Grid.Column width={6}></Grid.Column>
+              <Grid.Column width={6}>
+                <div style={{ marginTop: margins.large }}>
+                  <SideNotes
+                    notes={[
+                      ReactHtmlParser(
+                        "<strong><em>a</em> + consonant</strong>"
+                      ),
+                      ReactHtmlParser(
+                        "<em>I'm <strong>a</strong> student</em>"
+                      ),
+                      ReactHtmlParser("<em>an</em> + vowel"),
+                      ReactHtmlParser(
+                        "<em>I'm</em> <strong>an</strong> architect"
+                      )
+                    ]}
+                  />
+                </div>
+              </Grid.Column>
               <Grid.Column width={10}>
                 <HeaderH2 style={{ marginTop: margins.medium }}>
                   Vocabulary
@@ -166,7 +189,7 @@ class LessonPage extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
-        </SpeakingSection>
+        </Section>
       </>
     );
   }
