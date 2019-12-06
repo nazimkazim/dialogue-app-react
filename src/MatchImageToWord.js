@@ -10,6 +10,8 @@ import {
   Checkbox
 } from "semantic-ui-react";
 import { getTranslations } from "./getTranslation";
+const getItRight =
+  "https://res.cloudinary.com/nzmai/video/upload/v1575606316/level-win_hytllh.wav";
 const _ = require("lodash");
 
 let answerArr = [];
@@ -23,8 +25,10 @@ class MatchImageToWord extends Component {
       inputAnswer: [],
       score: 0,
       turnedPrompts: false,
-      isCorrect: false
+      isCorrect: false,
+      isWrong: false
     };
+    this.audio = new Audio(getItRight);
     this.writeAnswer = this.writeAnswer.bind(this);
     this.toggle = this.toggle.bind(this);
   }
@@ -71,6 +75,14 @@ class MatchImageToWord extends Component {
       this.setState({
         isCorrect: true
       });
+      this.audio.play();
+    } else {
+      this.setState({
+        isWrong: true
+      });
+      setTimeout(() => {
+        this.setState({ isWrong: false });
+      }, 5000);
     }
     //console.log(answersArray, inputAnswer);
   }
@@ -180,7 +192,18 @@ class MatchImageToWord extends Component {
             >
               Check
             </Button>
-            {this.state.isCorrect && <span>Perfect</span>}
+            {this.state.isCorrect && (
+              <span>
+                Perfect
+                <i class="em em-first_place_medal" />
+                <i class="em em-fire" />
+              </span>
+            )}
+            {this.state.isWrong && (
+              <span>
+                Try again <i className="em em-angry" />
+              </span>
+            )}
           </div>
         </Grid.Column>
         <Grid.Column width={12}>

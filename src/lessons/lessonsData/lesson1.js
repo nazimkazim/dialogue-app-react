@@ -24,45 +24,63 @@ export default {
       parts: [
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553243/matchImagesToWord/set2/journalist.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553243/matchImagesToWord/set2/journalist.jpg",
           id: "1",
           word: "journalist"
         },
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553240/matchImagesToWord/set2/lawyer.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553240/matchImagesToWord/set2/lawyer.jpg",
           id: "2",
           word: "lawyer"
         },
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553240/matchImagesToWord/set2/bus-driver.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553240/matchImagesToWord/set2/bus-driver.jpg",
           id: "3",
           word: "bus driver"
         },
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553238/matchImagesToWord/set2/photographer.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553238/matchImagesToWord/set2/photographer.jpg",
           id: "4",
           word: "photographer"
         },
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553230/matchImagesToWord/set2/nurse.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553230/matchImagesToWord/set2/nurse.jpg",
           id: "5",
           word: "nurse"
         },
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553235/matchImagesToWord/set2/teacher.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553235/matchImagesToWord/set2/teacher.jpg",
           id: "6",
           word: "teacher"
         },
         {
           image:
-            "https://res.cloudinary.com/nzmai/image/upload/c_thumb,w_200,g_face/v1575553230/matchImagesToWord/set2/programmer.jpg",
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553234/matchImagesToWord/set2/programmer.jpg",
           id: "7",
           word: "programmer"
+        },
+        {
+          image:
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553233/matchImagesToWord/set2/shop-assistant.jpg",
+          id: "8",
+          word: "shop assistant"
+        },
+        {
+          image:
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553229/matchImagesToWord/set2/secretary.jpg",
+          id: "9",
+          word: "secretary"
+        },
+        {
+          image:
+            "https://res.cloudinary.com/nzmai/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1575553227/matchImagesToWord/set2/builder.jpg",
+          id: "10",
+          word: "builder"
         }
       ]
     }
