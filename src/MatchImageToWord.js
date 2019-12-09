@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+//import ttsStyle from "./ttsStyle";
 import {
   Grid,
   Image,
@@ -10,6 +11,7 @@ import {
   Checkbox
 } from "semantic-ui-react";
 import { getTranslations } from "./getTranslation";
+import Speech from "react-speech";
 const getItRight =
   "https://res.cloudinary.com/nzmai/video/upload/v1575606316/level-win_hytllh.wav";
 const _ = require("lodash");
@@ -148,7 +150,11 @@ class MatchImageToWord extends Component {
                       }}
                       name={item.word}
                     >
-                      {item.word}
+                      <Speech
+                        text={item.word}
+                        textAsButton={true}
+                        voice="Google UK English Female"
+                      />
                     </span>
                   }
                   content={

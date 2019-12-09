@@ -181,7 +181,15 @@ class LessonPage extends Component {
                   />
                 </div>
                 <Modal trigger={<Button>Start exercise</Button>}>
-                  <Modal.Header>Match photos to words</Modal.Header>
+                  <Modal.Header>
+                    Match photos to words
+                    <br></br>
+                    <Instruction
+                      engInstruction="To play pronunciation click on a word"
+                      rusInstruction="Чтобы прослушать произношение нажмите на слово."
+                      label={true}
+                    />
+                  </Modal.Header>
                   <Modal.Content>
                     <MatchImageToWord lines={data.matchProfessions} />
                   </Modal.Content>
