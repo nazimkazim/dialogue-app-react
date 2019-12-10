@@ -4,6 +4,7 @@ import Banner from "./components/Banner";
 import AimsComponent from "./components/AimsComponent";
 import BubbleSpeech from "./components/BubbleSpeech";
 import TickWords from "./components/TickWords";
+import TextArea from "./components/FormInputs/TextArea";
 import { Grid, Modal, Button } from "semantic-ui-react";
 import Instruction from "../Instructions";
 import ReactHtmlParser from "react-html-parser";
@@ -214,6 +215,7 @@ class LessonPage extends Component {
                     rusInstruction="Напишите свои собственные предложения для других четырех профессий."
                   />
                 </div>
+                <TextArea />
               </Grid.Column>
             </Grid.Row>
           </Grid>

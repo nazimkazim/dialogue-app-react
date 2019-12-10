@@ -201,8 +201,8 @@ class MatchImageToWord extends Component {
             {this.state.isCorrect && (
               <span>
                 Perfect
-                <i class="em em-first_place_medal" />
-                <i class="em em-fire" />
+                <i className="em em-first_place_medal" />
+                <i className="em em-fire" />
               </span>
             )}
             {this.state.isWrong && (
