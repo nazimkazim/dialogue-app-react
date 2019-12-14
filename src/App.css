@@ -364,3 +364,17 @@ Style button
   height: 100px;
   background: blue;
 }
+
+.rs-play {
+  background-color: "white";
+}
+
+.rs-text {
+  padding: 0;
+  margin: 0;
+}
+
+.rs-play {
+  background-color: white !important;
+  outline: none !important;
+}

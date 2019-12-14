@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getTranslations } from "./getTranslationWithPOS";
 import { List, Popup, Checkbox } from "semantic-ui-react";
+import Speech from "react-speech";
 import {
   isNounPlural,
   singularizedNoun,
@@ -23,8 +24,7 @@ export default class Rita extends Component {
   }
 
   componentDidMount() {
-    const text =
-      "A fiercely divided House Judiciary Committee approved two articles of impeachment against President Trump on Friday, setting up a historic vote before the full House that would make him only the third president to be impeached The impeachment articles, passed over fierce Republican protests, accused the president of abusing the power of his office and obstructing Congress. The votes and a fractious two-day debate preceding them reflected the realities of the hyperpartisan divisions in American politics that have grown wider during Mr. Trump’s three years in office. With back-to-back votes shortly after 10 a.m., the Democratic-controlled committee recommended that the House ratify the articles of impeachment against the 45th president, over howls of Republican protest. Each passed, 23 to 17, along strictly partisan lines.";
+    const text = `Alice's Adventures in Wonderland (commonly shortened to Alice in Wonderland) is an 1865 novel written by English author Charles Lutwidge Dodgson under the pseudonym Lewis Carroll It tells of a young girl named Alice falling through a rabbit hole into a fantasy world populated by peculiar, anthropomorphic creatures The tale plays with logic, giving the story lasting popularity with adults as well as with children It is considered to be one of the best examples of the literary nonsense genre One of the best-known and most popular works of English-language fiction, its narrative course, structure, characters, and imagery have been enormously influential in both popular culture and literature, especially in the fantasy genre The work has never been out of print, and it has been translated into at least 97 languages Its ongoing legacy encompasses many adaptations for stage, screen, radio, art, theme parks, board games, and video games`;
     var str = nlp(text);
     //console.log(str.tagger().list[0].terms);
     const terms = str.tagger().list[0].terms;
@@ -80,7 +80,11 @@ export default class Rita extends Component {
                     }}
                     name={item.word}
                   >
-                    {item.word}
+                    <Speech
+                      text={item.word}
+                      textAsButton={true}
+                      voice="Google UK English Male"
+                    />
                   </span>
                 }
                 content={
@@ -90,6 +94,9 @@ export default class Rita extends Component {
                       this.state.turnedPrompts && (
                         <>
                           <List.Item key={i}>{w}</List.Item>
+                          <span>
+                            {item.translation && item.translation.transcript}
+                          </span>
                         </>
                       )
                   )
