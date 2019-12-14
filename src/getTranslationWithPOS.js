@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getTranslations = word => {
+export const getTranslations = (word, pos) => {
   let translatedWordArr = [];
   let obj = {};
   const keyAPI =
