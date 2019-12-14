@@ -10,7 +10,7 @@ export const getTranslations = (word, pos) => {
       `https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${keyAPI}&lang=en-ru&text=${word}`
     )
     .then(res => {
-      console.log(res.data.def);
+      //console.log(res.data.def);
 
       if (res.data.def.length > 0) {
         let translatedWord = res.data.def[0].tr;
