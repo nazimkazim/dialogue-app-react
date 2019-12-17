@@ -1,13 +1,13 @@
 import axios from "axios";
+import keyAPI from "./keyDict";
 
 export const getTranslations = (word, pos) => {
   let translatedWordArr = [];
   let obj = {};
-  const keyAPI =
-    "dict.1.1.20191101T105247Z.e4967bda9fba183c.2e2703fc28b2d4f5283bb48a004dcb2327b4ba72";
+  const key = keyAPI.key;
   axios
     .get(
-      `https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${keyAPI}&lang=en-ru&text=${word}`
+      `https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=${key}&lang=en-ru&text=${word}`
     )
     .then(res => {
       //console.log(res.data.def);

@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { getTranslations } from "./getTranslationWithPOS";
-import { List, Popup, Checkbox } from "semantic-ui-react";
+import { strText } from "./Text";
+
+import {
+  Checkbox,
+  Menu,
+  Segment,
+  Sidebar,
+  Icon,
+  List
+} from "semantic-ui-react";
 import Speech from "react-speech";
 import {
   isNounPlural,
@@ -18,15 +27,19 @@ export default class Rita extends Component {
     super(props);
     this.state = {
       wordsObj: "",
-      turnedPrompts: false
+      turnedPrompts: false,
+      isDrawerOpen: false,
+      visible: false,
+      clickedWord: "and"
     };
     this.toggle = this.toggle.bind(this);
+    this.showDrawer = this.showDrawer.bind(this);
   }
 
   componentDidMount() {
-    const text = `Alice's Adventures in Wonderland (commonly shortened to Alice in Wonderland) is an 1865 novel written by English author Charles Lutwidge Dodgson under the pseudonym Lewis Carroll It tells of a young girl named Alice falling through a rabbit hole into a fantasy world populated by peculiar, anthropomorphic creatures The tale plays with logic, giving the story lasting popularity with adults as well as with children It is considered to be one of the best examples of the literary nonsense genre One of the best-known and most popular works of English-language fiction, its narrative course, structure, characters, and imagery have been enormously influential in both popular culture and literature, especially in the fantasy genre The work has never been out of print, and it has been translated into at least 97 languages Its ongoing legacy encompasses many adaptations for stage, screen, radio, art, theme parks, board games, and video games`;
-    var str = nlp(text);
+    var str = nlp(strText);
     //console.log(str.tagger().list[0].terms);
+
     const terms = str.tagger().list[0].terms;
     const obj = terms.map(term => {
       let obj = {};
@@ -47,9 +60,10 @@ export default class Rita extends Component {
 
       let translatedList = getTranslations(wordForTranlsation, posList);
       obj.pos = posList;
+      //obj.person = term.people();
       obj.word = word;
       obj.translation = translatedList;
-      //console.log(obj);
+      //console.log(term);
       return obj;
     });
     this.setState({
@@ -63,46 +77,73 @@ export default class Rita extends Component {
     }));
   }
 
-  formatString(obj) {
+  showDrawer(e) {
+    e.preventDefault();
+    let word = e.target.textContent;
+    //console.log("clicked");
+    console.log(word);
+    this.setState(prevState => ({
+      isDrawerOpen: !prevState.isDrawerOpen,
+      visible: !prevState.visible,
+      clickedWord: word
+    }));
+  }
+
+  showWordDetails(obj, word) {
+    //const result = obj.filter(item => item.word === word);
+    /* for (var key in obj) {
+      console.log(obj[key].word === word);
+    }
+    console.log(obj, word);
+    //console.log(result); */
+    const array = Object.entries(obj);
+    const result = array.filter(item => item[1].word === word);
+    if (result.length > 0) {
+      let res = result[0][1];
+      console.log(res);
+      return (
+        <>
+          <Menu.Item as="a">
+            <Icon name="home" />
+            {res.word}
+          </Menu.Item>
+          <Menu.Item as="a">
+            <Icon name="gamepad" />
+            {res.translation.transcription}
+          </Menu.Item>
+          <Menu.Item as="a">
+            <Icon name="camera" />
+            {res.translation.translatedWordArr &&
+              res.translation.translatedWordArr.map(word => (
+                <List>{word}</List>
+              ))}
+          </Menu.Item>
+        </>
+      );
+    }
+  }
+
+  showEntireText(obj) {
     return (
       obj &&
       obj.map((item, i) => (
         <>
           <>
             {item.word && (
-              <Popup
-                trigger={
-                  <span
-                    style={{
-                      wordWrap: "break-word",
-                      cursor: "pointer",
-                      marginRight: "0.5em"
-                    }}
-                    name={item.word}
-                  >
-                    <Speech
-                      text={item.word}
-                      textAsButton={true}
-                      voice="Google UK English Male"
-                    />
-                  </span>
-                }
-                content={
-                  item.translation.translatedWordArr &&
-                  item.translation.translatedWordArr.slice(0, 3).map(
-                    (w, i) =>
-                      this.state.turnedPrompts && (
-                        <>
-                          <List.Item key={i}>{w}</List.Item>
-                          <span>
-                            {item.translation && item.translation.transcript}
-                          </span>
-                        </>
-                      )
-                  )
-                }
-                position="top left"
-              />
+              <span
+                style={{
+                  wordWrap: "break-word",
+                  cursor: "pointer",
+                  marginRight: "0.5em"
+                }}
+                onClick={e => this.showDrawer(e)}
+              >
+                <Speech
+                  text={item.word}
+                  textAsButton={true}
+                  voice="Google UK English Male"
+                />
+              </span>
             )}
           </>
         </>
@@ -111,16 +152,37 @@ export default class Rita extends Component {
   }
 
   render() {
-    console.log(this.state.wordsObj && this.state.wordsObj);
+    //console.log(this.state.wordsObj && this.state.wordsObj);
 
     return (
-      <div style={{ maxWidth: "800px", height: "100%" }}>
-        <div>
-          {!this.state.turnedPrompts ? "prompts are off" : "prompts are on"}
-        </div>
-        <Checkbox slider onClick={this.toggle} />
-        {this.formatString(this.state.wordsObj)}
-      </div>
+      <Sidebar.Pushable as={Segment}>
+        <Sidebar
+          as={Menu}
+          animation="overlay"
+          icon="labeled"
+          inverted
+          onHide={() => this.setState({ visible: false })}
+          vertical
+          visible={this.state.visible}
+          width="thin"
+        >
+          {this.showWordDetails(this.state.wordsObj, this.state.clickedWord)}
+        </Sidebar>
+
+        <Sidebar.Pusher dimmed={this.state.visible}>
+          <Segment basic>
+            <div>
+              <div>
+                {!this.state.turnedPrompts
+                  ? "prompts are off"
+                  : "prompts are on"}
+              </div>
+              <Checkbox slider onClick={this.toggle} />
+              {this.showEntireText(this.state.wordsObj)}
+            </div>
+          </Segment>
+        </Sidebar.Pusher>
+      </Sidebar.Pushable>
     );
   }
 }
