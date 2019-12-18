@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import { getTranslations } from "./getTranslationWithPOS";
 import { strText } from "./Text";
 
-import {
-  Checkbox,
-  Menu,
-  Segment,
-  Sidebar,
-  Icon,
-  List
-} from "semantic-ui-react";
+import { Menu, Segment, Sidebar, Icon, List } from "semantic-ui-react";
 import Speech from "react-speech";
 import {
   isNounPlural,
@@ -27,10 +20,9 @@ export default class Rita extends Component {
     super(props);
     this.state = {
       wordsObj: "",
-      turnedPrompts: false,
       isDrawerOpen: false,
       visible: false,
-      clickedWord: "and"
+      clickedWord: ""
     };
     this.toggle = this.toggle.bind(this);
     this.showDrawer = this.showDrawer.bind(this);
@@ -54,7 +46,7 @@ export default class Rita extends Component {
         wordForTranlsation = infinitivizeVerb(wordForTranlsation);
       }
       //console.log(isVerbPastTense("impeached"));
-      //console.log(infinitivizeVerb("impeached"));
+      //console.log(infinitivizeVerb("regarded"));
       let posList = Object.keys(term.tags);
       //console.log(posList);
 
@@ -118,6 +110,25 @@ export default class Rita extends Component {
                 <List>{word}</List>
               ))}
           </Menu.Item>
+          <Menu.Item as="a">
+            <Icon name="camera" />
+            {res.pos && res.pos.map(pos => <List>{pos}</List>)}
+          </Menu.Item>
+          <Menu.Item as="a">
+            <Icon name="camera" />
+            {res.translation.examples &&
+              res.translation.examples.map(item =>
+                item !== undefined
+                  ? item.map(item => (
+                      <List divided inverted relaxed>
+                        <List.Item>{item.text}</List.Item>
+                        <List.Item>{item.tr[0].text}</List.Item>
+                        <hr></hr>
+                      </List>
+                    ))
+                  : ""
+              )}
+          </Menu.Item>
         </>
       );
     }
@@ -170,17 +181,9 @@ export default class Rita extends Component {
         </Sidebar>
 
         <Sidebar.Pusher dimmed={this.state.visible}>
-          <Segment basic>
-            <div>
-              <div>
-                {!this.state.turnedPrompts
-                  ? "prompts are off"
-                  : "prompts are on"}
-              </div>
-              <Checkbox slider onClick={this.toggle} />
-              {this.showEntireText(this.state.wordsObj)}
-            </div>
-          </Segment>
+          <div style={{ height: "100vh" }}>
+            <>{this.showEntireText(this.state.wordsObj)}</>
+          </div>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     );

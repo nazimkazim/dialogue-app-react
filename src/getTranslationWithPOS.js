@@ -3,6 +3,7 @@ import keyAPI from "./keyDict";
 
 export const getTranslations = (word, pos) => {
   let translatedWordArr = [];
+  let examplesArr = [];
   let obj = {};
   const key = keyAPI.key;
   axios
@@ -12,18 +13,28 @@ export const getTranslations = (word, pos) => {
     .then(res => {
       //console.log(res.data.def);
 
-      if (res.data.def.length > 0) {
-        let translatedWord = res.data.def[0].tr;
-        let transcription = res.data.def[0].ts;
+      try {
+        if (res.data.def.length > 0) {
+          let translatedWord = res.data.def[0].tr;
+          let transcription = res.data.def[0].ts;
+          let examples = res.data.def[0].tr;
 
-        translatedWord.forEach(word => {
-          translatedWordArr.push(word.text);
-        });
+          translatedWord.forEach(word => {
+            translatedWordArr.push(word.text);
+          });
 
-        obj.translatedWordArr = translatedWordArr;
-        obj.transcription = transcription;
-      } else {
-        console.log("no word exist");
+          examples.forEach(example => {
+            examplesArr.push(example.ex);
+          });
+
+          obj.translatedWordArr = translatedWordArr;
+          obj.transcription = transcription;
+          obj.examples = examplesArr;
+        } else {
+          console.log("no word exist");
+        }
+      } catch (e) {
+        console.error(e);
       }
     });
 
