@@ -11,6 +11,9 @@ import {
   isVerbPastTense
 } from "./nlpHelperFunctions";
 var nlp = require("compromise");
+var keyword_extractor = require("keyword-extractor");
+//var natural = require("natural");
+//var NGrams = natural.NGrams;
 
 //import { RiString } from 'rita';
 //var rita = require('rita');
@@ -29,14 +32,58 @@ export default class Rita extends Component {
   }
 
   componentDidMount() {
-    var str = nlp(strText);
+    let str = nlp(strText).normalize();
+
+    /* let ngramsArr = NGrams.bigrams(strText);
     //console.log(str.tagger().list[0].terms);
+    let arr = [];
+    ngramsArr.map(item => {
+      //console.log(`${item[0]} ${item[1]}`);
+
+      // Push ngram phrases into arr
+      arr.push(`${item[0]} ${item[1]}`);
+      //console.log(arr);
+      return true;
+    }); */
+
+    /* let validNgramPhrases = [];
+
+    arr.map(word => {
+      let tranlsatedWord = getTranslations(word);
+      if (!"no word exist") {
+        validNgramPhrases.push(tranlsatedWord);
+      }
+      //console.log(tranlsatedWord);
+      return true;
+    });
+
+    console.log(validNgramPhrases); */
+
+    var extraction_result = keyword_extractor.extract(strText, {
+      language: "english",
+      remove_digits: true,
+      return_changed_case: true,
+      remove_duplicates: true,
+      return_chained_words: true,
+      return_max_ngrams: 3
+    });
+
+    let twoThreeNgrams = [];
+
+    extraction_result.map(ngram => {
+      ngram.replace(/\/r/g, "/").split(" ").length > 1 &&
+        twoThreeNgrams.push(ngram);
+
+      return true;
+    });
+
+    console.log(twoThreeNgrams);
 
     const terms = str.tagger().list[0].terms;
     const obj = terms.map(term => {
       let obj = {};
       let word = term._text && term._text;
-      let wordForTranlsation = term.normal;
+      let wordForTranlsation = term.normal && term.normal;
 
       if (isNounPlural(wordForTranlsation)) {
         wordForTranlsation = singularizedNoun(wordForTranlsation);
@@ -45,8 +92,8 @@ export default class Rita extends Component {
       if (isVerbPastTense(wordForTranlsation)) {
         wordForTranlsation = infinitivizeVerb(wordForTranlsation);
       }
-      //console.log(isVerbPastTense("impeached"));
-      //console.log(infinitivizeVerb("regarded"));
+      //console.log(isVerbPastTense("earn"));
+      //console.log(infinitivizeVerb("earn"));
       let posList = Object.keys(term.tags);
       //console.log(posList);
 
@@ -175,7 +222,6 @@ export default class Rita extends Component {
           onHide={() => this.setState({ visible: false })}
           vertical
           visible={this.state.visible}
-          width="thin"
         >
           {this.showWordDetails(this.state.wordsObj, this.state.clickedWord)}
         </Sidebar>
