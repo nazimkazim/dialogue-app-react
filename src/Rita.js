@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getTranslations } from "./getTranslationWithPOS";
 import { strText } from "./Text";
+import axios from "axios";
 
 import { Menu, Segment, Sidebar, Icon, List } from "semantic-ui-react";
 import Speech from "react-speech";
@@ -25,14 +26,15 @@ export default class Rita extends Component {
       wordsObj: "",
       isDrawerOpen: false,
       visible: false,
-      clickedWord: ""
+      clickedWord: "",
+      vacabBank: ""
     };
     this.toggle = this.toggle.bind(this);
     this.showDrawer = this.showDrawer.bind(this);
   }
 
   componentDidMount() {
-    let str = nlp(strText).normalize();
+    let str = nlp(strText);
 
     /* let ngramsArr = NGrams.bigrams(strText);
     //console.log(str.tagger().list[0].terms);
@@ -62,7 +64,7 @@ export default class Rita extends Component {
     var extraction_result = keyword_extractor.extract(strText, {
       language: "english",
       remove_digits: true,
-      return_changed_case: true,
+      return_changed_case: false,
       remove_duplicates: true,
       return_chained_words: true,
       return_max_ngrams: 3
@@ -71,10 +73,54 @@ export default class Rita extends Component {
     let twoThreeNgrams = [];
 
     extraction_result.map(ngram => {
-      ngram.replace(/\/r/g, "/").split(" ").length > 1 &&
-        twoThreeNgrams.push(ngram);
+      let trimmed = ngram.replace(/-/g, "");
+      trimmed.split(" ").length > 1 && twoThreeNgrams.push(trimmed);
 
       return true;
+    });
+
+    const getTranslation = word => {
+      const set = [];
+      const keyAPI =
+        "trnsl.1.1.20191009T070833Z.ae8dcd5c86e84378.31b471ecd7adf0d1bc0e20b4405abd6c1af7dc17";
+      axios
+        .get(
+          `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${keyAPI}&text=${word}&lang=ru`
+        )
+        .then(res => {
+          //console.log(res.data.text);
+
+          const words =
+            res.data.text.length > 0
+              ? res.data.text.map(item => {
+                  return isRussianWord(item.toLowerCase())
+                    ? set.push(item.toLowerCase())
+                    : set.push("");
+                })
+              : res.data.text;
+          return words;
+        });
+      return set;
+    };
+
+    const isRussianWord = word => {
+      var rforeign = /[а-яА-ЯЁё]/;
+      if (rforeign.test(word)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    const vocabBankTranslated = twoThreeNgrams.map(phrase => {
+      return {
+        translatedWord: getTranslation(phrase),
+        originalWord: phrase
+      };
+    });
+
+    this.setState({
+      vocabBank: vocabBankTranslated
     });
 
     console.log(twoThreeNgrams);
@@ -83,7 +129,7 @@ export default class Rita extends Component {
     const obj = terms.map(term => {
       let obj = {};
       let word = term._text && term._text;
-      let wordForTranlsation = term.normal && term.normal;
+      let wordForTranlsation = term.normal && term.normal.replace(/,/g, "");
 
       if (isNounPlural(wordForTranlsation)) {
         wordForTranlsation = singularizedNoun(wordForTranlsation);
@@ -143,26 +189,30 @@ export default class Rita extends Component {
       return (
         <>
           <Menu.Item as="a">
-            <Icon name="home" />
-            {res.word}
+            <Icon name="add circle" />
+            <Speech
+              text={res.word}
+              textAsButton={true}
+              voice="Google UK English Male"
+            />
           </Menu.Item>
           <Menu.Item as="a">
-            <Icon name="gamepad" />
+            <Icon name="play" />
             {res.translation.transcription}
           </Menu.Item>
           <Menu.Item as="a">
-            <Icon name="camera" />
+            <Icon name="language" />
             {res.translation.translatedWordArr &&
               res.translation.translatedWordArr.map(word => (
                 <List>{word}</List>
               ))}
           </Menu.Item>
           <Menu.Item as="a">
-            <Icon name="camera" />
+            <Icon name="exchange" />
             {res.pos && res.pos.map(pos => <List>{pos}</List>)}
           </Menu.Item>
           <Menu.Item as="a">
-            <Icon name="camera" />
+            <Icon name="sidebar" />
             {res.translation.examples &&
               res.translation.examples.map(item =>
                 item !== undefined
@@ -211,7 +261,17 @@ export default class Rita extends Component {
 
   render() {
     //console.log(this.state.wordsObj && this.state.wordsObj);
-
+    const vocab =
+      this.state.vocabBank &&
+      this.state.vocabBank.map(item => (
+        <>
+          <List.Item>
+            {item.originalWord} -{" "}
+            {item.translatedWord ? item.translatedWord[0] : "no definition"}
+          </List.Item>
+        </>
+      ));
+    console.log(this.state.vocabBank);
     return (
       <Sidebar.Pushable as={Segment}>
         <Sidebar
@@ -227,8 +287,11 @@ export default class Rita extends Component {
         </Sidebar>
 
         <Sidebar.Pusher dimmed={this.state.visible}>
-          <div style={{ height: "100vh" }}>
-            <>{this.showEntireText(this.state.wordsObj)}</>
+          <div style={{ height: "100%" }}>
+            <>
+              {this.showEntireText(this.state.wordsObj)}
+              <List>{vocab}</List>
+            </>
           </div>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
